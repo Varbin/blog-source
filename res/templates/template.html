@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <title>{{ .Doc.title }} - sbiewald ▪ Blog</title>
+        <link rel="stylesheet" href="/res/default.css">
+        <link rel="stylesheet" href="/res/prism/prism.css">
+        <link rel="alternate" type="application/rss+xml"
+            title="RSS" href="/index.rss">
+        <meta charset='UTF-8'>
+        <meta referrer="no-referrer, strict-origin-when-cross-origin" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta author="{{ .Doc.author }}">
+        <meta description="{{ .Doc.description }}">
+        <meta subject="{{ .Doc.subject }}">
+        <meta date="{{ .Doc.date }}">
+    </head>
+    <body>
+        <div id="wrapper">
+            <nav>
+                <div class="container">
+                    <div class="navbar">
+                        <a class="boxlink" href="/">sbiewald ▪ Blog</a>
+                        <a class="boxlink" href="/index.rss">Rss</a>
+                        <a class="boxlink" href="https://github.com/Varbin">
+                            GitHub/Varbin
+                        </a>
+                    </div> 
+                    <br />
+                    <a href="/">
+                        <div id="logo_box">
+                             <p id="logo_title"><b>{</b> sbiewald <b>}</b></p>
+                             <hr />
+                             <p id="logo_subtitle">Python ▪ Sicherheit</p>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+            <main class="container" id="main">
+                <article class="blogarticle">
+                {{ .Doc.body }}
+                </article>
+            </main>
+            <footer>
+                <div class="container">
+                    <p>© 2016 - {{ .Now "2006" }} &mdash; Simon Biewald &mdash; <a href="/impressum">Impressum</a></p>
+                </div>
+            </footer>
+        </div>
+    <script defer src="/res/prism/prism.js"></script>
+    </body>
+</html>

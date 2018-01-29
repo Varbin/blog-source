@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta http-equiv="Referrer-Policy" 
+            content="no-referrer, strict-origin-when-cross-origin">
+        <meta http-equiv="Content-Security-Policy" 
+            content="default-src 'none'; style-src 'sha256-QaKL16O86NDcDKw/3XMaxkZ25TFYA4W/AmbnnhTNsEk='">
+        <style>
+            * {font-family: OpenSans, Arial, Sans-serif;} 
+            h1 small {color: grey;}
+            p, p *, li, li * {font-family: Monospace;}
+            p, li {padding-left: 20px; font-size:1.25em}
+            a {color: blue;}
+        </style>
+        <title>MalShare-CAV - MalShare to ClamAV database conversion</title>
+    </head>
+    <body>
+        <h1>MalShare-CAV <small>- MalShare to ClamAV database conversion</small></h1>
+        <p>
+            On <a href="https://malshare.com/index.php">malshare.com</a> a not small 
+            amount of potential dangerous files are uploaded everyday.
+        </p>
+        <p> 
+            At the same time many of the submitted samples are not submitted to
+            <a href="https://www.clamav.net/">ClamAV</a>. To change this, this site was 
+            created: On demand 
+            <a href="https://malshare.com/index.php">malshare.com</a>'s newest 
+            signaures are downloaded and converted to ClamAV's 
+            <a href="https://github.com/vrtadmin/clamav-devel/raw/master/docs/signatures.pdf">
+                hash-based signature format</a>.
+        </p>
+        <h2>Naming</h2>
+        <p>
+             MalShare provides the hashes without names so the signatures are named in 
+             the format <b>MalShare.<i>YYYYMMDD</i>.<i>number</i></b>. ClamAV suffixes 
+             those names with <b>.UNOFFICIAL</b>
+        </p>
+        <p>
+            Daily signatures have an additional "c" in the number.
+        </p>
+       
+        <h2>Download</h2>
+        <p>
+            Full database (excluding today's signatures; 
+                &gt;1 million signatures as of 2017-01-04):
+        </p>
+        <ul>
+            <li><a href="https://sbiewald.de/api/malshare//MalShare.hdb">Malshare.hdb</a>; MD5; Size: &gt;100MiB!</li>
+        </ul>
+        <p>
+            Current database (only today's signatures):
+        </p>
+        <ul>
+            <li><a href="https://sbiewald.de/api/malshare/MalShare-current.hdb">MalShare-current.hdb</a>;
+                MD5; Size: &lt;5kiB</li>
+            <li><a href="https://sbiewald.de/api/malshare/MalShare-current.hsb">MalShare-current.hsb</a>;
+                SHA1; Size: &lt;5kiB</li>
+        </ul>
+        <h2>Installation</h2>
+        <h3>Manual</h3>
+        <p>
+            As freshclam does not support https it is impossible to download 
+            the custom database securely. Best would be to use an external tool like 
+            <a href="https://curl.haxx.se/">curl</a> or 
+            <a href="https://www.gnu.org/software/wget/">wget</a>. Many environments
+            do already provide on of the listed tools.
+        </p>
+        <p>
+            For regular updates i.e. put this in your update user's crontab:
+        </p>
+        <p>
+            <b>0 0 * * Sun      wget -q https://sbiewald.de/api/malshare/MalShare.hdb -O <i>/path/to/db/folder/</i>MalShare.hdb</b>
+        </p>
+        <p>
+            This will fetch the latest database every sunday.
+        </p>
+        <p>
+            <i> An increase of the update frequency is not recommended. <u>Please also 
+            note that the freshly downloaded database is not tested to work.</u>
+            Test the database before using!</i>
+        </p>
+        <h3>Freshclam</h3>
+        <p>
+            To automatically download the MalShare database with freshclam add 
+            following line to your <i>freshclam.conf</i>:
+        </p>
+        <p>
+            <b>DatabaseCustomURL http://insecure.sbiewald.de/api/malshare/MalShare.hdb</b>
+        </p>
+        <p>
+            ClamAV sadly does not support https. To download the databas securely, see 
+            manual setup. Also ClamAV does not update the installed database. To trigger 
+            a new download the old database must be removed.
+        </p>
+        <h3>Self hosting</h3>
+        <p>
+            It is possible to install the conversion server on own servers and integrate it in 
+            the own infrastructure. For an easy installation within Python execute following command:
+        </p>
+        <p>
+            <b>pip3 install git+https://github.com/Varbin/malshare_db</b>
+        </p>
+        <p>
+            Please see the <a href="malshare_db.html">command line references</a>
+        </p>
+        <p>
+            The code can be found on GitHub: 
+            <a href="https://github.com/Varbin/malshare_db">Varbin/malshare_db</a>.
+        </p>
+        <h2>Copyright &amp; Disclaimer</h2>
+        <p>
+            The database source is
+             <a href="https://malshare.com">malshare.com</a>. Respsect their
+             <a href="https://malshare.com/tos.php">Terms of Use</a>.
+        </p>
+        <p>
+            This site has no connection to The Silent Sigma Foundation (operator 
+            of <a href="https://malshare.com">malshare.com</a>). 
+        </p>
+        <p>
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+            EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+            MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+            IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+            CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+            OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+            THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </p>
+    </body>
+</html>

@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Referrer-Policy"
+            content="no-referrer, strict-origin-when-cross-origin">
+        <meta http-equiv="Content-Security-Policy"
+            content="default-src 'none'; style-src 'sha256-TE2CF7h2yF1yToF4ZdxcWoTStV8ZGmXmvFlf9rv1b14='">
+        <style>
+            * {font-family: 'Open Sans', Arial, Sans-serif;}
+            h1 small {color: grey;}
+            p, p *, li, li *, td {font-family: Monospace;}
+            p, li, td {padding-left: 20px; font-size:1.25em}
+            a {color: blue;}
+            .sep {border-left: solid #111}
+            .minwidth {min-width: 100px}
+            .box {display: inline-block} .box p {font-size:1em}
+            .naming {font-family: 'Open Sans', Arial, Sans-serif;}
+            .ident {padding-left: 20px;}
+        </style>
+        <title>Documentation of malshare_db 0.1</title>
+    </head>
+    <body>
+        <h1>
+            malshare_db <small>(Version 0.1)</small></h1>
+        <p>
+            
+                MalShare to ClamAV converter <br />
+            
+                 <br />
+            
+                Usage: malshare_db.py [--help|--version|--cgi|--fcgi[-server]|--wsgi(ref|aio)|--offline] <br />
+            
+                 <br />
+            
+                Command line arguments: <br />
+            
+                  --help   Show this message and exit. <br />
+            
+                  --version Show script version and installed capabilities. <br />
+            
+                 <br />
+            
+                  --cgi   Run this script as CGI script. <br />
+            
+                  --fcgi   Run this script as FastCGI script (for e.g. FastCGI spawn). <br />
+            
+                  --fcgi-server Run this script as FastCGI server on 127.0.0.1:9000 (see WSGI_HOST and WSGI_PORT). <br />
+            
+                  --wsgiref Start this script on the WSGI reference server on 127.0.0.1:8000 (see WSGI_HOST and WSGI_PORT). <br />
+            
+                  --wsgiaio Start this script on the aiohttp WSGI adapter on 127.0.0.1:8000 (see WSGI_HOST and WSGI_PORT). <br />
+            
+                 <br />
+            
+                  --offline (Default) Update &quot;MalShare.hdb&quot; in the current directory. <br />
+            
+                 <br />
+            
+                 <br />
+            
+                For --fcgi and --fcgi-server one of the packages flup (Python 2 and Python 3 in dev version), flup6 (Python &gt;= 3), gevent-fastcgi (Python 2) or flipflop (also Python &gt;= 3) is required. The package flipflop does not support --fcgi-server. <br />
+            
+                 <br />
+            
+                With --fcgi-server the main database download is really slow (low latency, but also low throughput and a high CPU usage). <br />
+            
+                 <br />
+            
+                The --wsgiref option also validates the script if it is conforming to the WSGI standart. Do not use --wsgiref in production, use a proper WSGI server. While it has a decent speed, it can exhaust resources quite fast and might have security vulnerabilities. USE --wsgiref FOR TESTING ONLY! <br />
+            
+                 <br />
+            
+                Using the --wsgiaio flag requires the packages aiohttp and aiohttp_wsgi to be installed. <br />
+            
+                 <br />
+            
+                 <br />
+            
+                Environment variables: <br />
+            
+                  DEBUG      Enables debug output to stderr <br />
+            
+                 <br />
+            
+                  WSGI_HOST=host Defines the hostname for servers (HTTP or FCGI). <br />
+            
+                    Default: 127.0.0.1 <br />
+            
+                  WSGI_PORT=port Defines the port for servers (HTTP or FCGI). <br />
+            
+                    Default: 8000 for HTTP; 9000 for FastCGI <br />
+            
+                 <br />
+            
+                  WSGI_PATH_STRIP=path  Strips path from the beginning of a request path. This is a hack as some webservers do not allow stripping the beginning of a path. Implementation detail: Additional endpoints starting with path are added. <br />
+            
+                 <br />
+            
+                  WSGI_FCGI_LIB=lib  Sets the FCGI library to use (default: choose automatically). Possible values: flup, flup6, flipflop, gevent-fastcgi. flup and flup6 are equivalent - both packages share the same namespace. <br />
+            
+                 <br />
+            
+                Optimizations: <br />
+            
+                  - Install requests-cache. This will enable caching the MalShare-current.* files. The cache is on a per-process-basis for security reasons, so the cache must be initialized for each process in multiprocess deployments. There will be no benefits if the application is only executed once for each request (e.g. CGI) as the cache is not shared. If security problems are solved within requests-cache a shared cache might be readded. <br />
+            
+                 <br />
+            
+                  - Use an external WSGI server for deployment. uWSGI and gunicorn both seem to be a good choice. This script offers the common entrypoints for WSGI servers &#x27;app&#x27; and &#x27;application&#x27;. If you use cherrypy malshare_db can be simply integrated in your application. <br />
+            
+                For aiohttp deployments &#x27;aioapp&#x27; is defined. See below for examples. <br />
+            
+                 <br />
+            
+                Examples: <br />
+            
+                  Deployment without external server: <br />
+            
+                    PATH_STRIP=/malshare WSGI_PORT=1234 malshare_db.py --wsgiref <br />
+            
+                    - Start this script on the WSGIref server on http://127.0.0.1:1234<br />
+            
+                    - Valid requests: <br />
+            
+                      http://127.0.0.1:1234/MalShare.hdb <br />
+            
+                      http://127.0.0.1:1234/MalShare-current.hdb <br />
+            
+                      http://127.0.0.1:1234/MalShare-current.hsb <br />
+            
+                      http://127.0.0.1:1234/malshare/MalShare.hdb <br />
+            
+                      ... <br />
+            
+                 <br />
+            
+                  Deployment with externel server (e.g. uWSGI, Gunicorn): <br />
+            
+                    uwsgi --http-socket 127.0.0.1:1234 malshare_db.py <br />
+            
+                    - Start this script on uWSGI on http://127.0.0.1:1234 <br />
+            
+                 <br />
+            
+                    gunicorn -k aiohttp.GunicornWebWorker -b 127.0.0.1:1234 malshare_db:aioapp <br />
+            
+                    - Start this script on Gunicorn with aiohttp on http://127.0.0.1:1234 <br />
+            
+                 <br />
+            
+                Resources: <br />
+            
+                 - malshare.com (<a href="https://malshare.com">https://malshare.com</a>) <br />
+            
+                 - gunicorn &#x27;Green unicorn&#x27; (<a href="http://gunicorn.org">http://gunicorn.org</a>) <br />
+            
+                 - uWSGI (<a href="https://uwsgi-docs.readthedocs.io">https://uwsgi-docs.readthedocs.io</a>) <br />
+            
+                 - CherryPy - Host a foreign WSGI application in CherryPy (<a href="http://docs.cherrypy.org/en/latest/advanced.html#host-a-foreign-wsgi-application-in-cherrypy">http://docs.cherrypy.org/en/latest/advanced.html#host-a-foreign-wsgi-application-in-cherrypy</a>) <br />
+            
+                 - WSGI standart PEP-3333 (<a href="https://www.python.org/dev/peps/pep-3333/">https://www.python.org/dev/peps/pep-3333/</a>) <br />
+            
+        </p>
+
+        
+
+        
+            <h2>Imported modules</h2>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/__future__.html">__future__</a></p></div>
+            
+                <div class="box"><p><a href="https://aiohttp.readthedocs.io">aiohttp</a></p></div>
+            
+                <div class="box"><p>aiohttp.web</p></div>
+            
+                <div class="box"><p><a href="https://aiohttp-wsgi.readthedocs.io">aiohttp_wsgi</a></p></div>
+            
+                <div class="box"><p>aiohttp_wsgi.wsgi</p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/asyncio.html">asyncio</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/datetime.html">datetime</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/itertools.html">itertools</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/logging.html">logging</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a></p></div>
+            
+                <div class="box"><p>multiprocessing.context</p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/os.html">os</a></p></div>
+            
+                <div class="box"><p><a href="https://portalocker.readthedocs.io">portalocker</a></p></div>
+            
+                <div class="box"><p><a href="https://requests.readthedocs.io">requests</a></p></div>
+            
+                <div class="box"><p><a href="https://requests-cache.readthedocs.io">requests_cache</a></p></div>
+            
+                <div class="box"><p>requests_cache.core</p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/sys.html">sys</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/traceback.html">traceback</a></p></div>
+            
+                <div class="box"><p><a href="https://docs.python.org/3/library/wsgiref.html">wsgiref</a></p></div>
+            
+                <div class="box"><p>wsgiref.handlers</p></div>
+            
+                <div class="box"><p>wsgiref.simple_server</p></div>
+            
+                <div class="box"><p>wsgiref.validate</p></div>
+            
+        
+
+        
+
+        
+            <h2>Functions</h2>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    app,application</b>(environ, start_response, strip=&#39;&#39;)
+                </p>
+                <p>
+                    
+                        WSGI application object for distributing MalShare&#x27;s database. <br />
+                    
+                         <br />
+                    
+                        Endpoints: <br />
+                    
+                          /MalShare.hdb <br />
+                    
+                          /MalShare-current.hdb <br />
+                    
+                          /MalShare-current.hsb <br />
+                    
+                         <br />
+                    
+                        environ (dict): WSGI environment <br />
+                    
+                         <br />
+                    
+                        start_response (callable(status, headers)): <br />
+                    
+                          Starts the WSGI response. <br />
+                    
+                         <br />
+                    
+                        strip (string): Strips this at the start of every requests&#x27; path. <br />
+                    
+                          Defaults os.environ[&quot;WSGI_PATH_STRIP&quot;] or &quot;&quot;. <br />
+                    
+                         <br />
+                    
+                        Returns: <br />
+                    
+                          Iterable returning bytes. <br />
+                    
+                </p>
+            
+                <p class="naming"><small> generator function
+                 </small><b class="naming">
+                    daterange</b>(start, stop)
+                </p>
+                <p>
+                    
+                        Creates a generator which returns dates from start to stop. <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    fastcgi</b>(wsgi_application, spawn=False, address=(&#39;127.0.0.1&#39;, 9000), use=None)
+                </p>
+                <p>
+                    
+                        Creates an FastCGI server for wsgi_application. <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    hash_to_db</b>(lines, tag, suffix, template=&#39;{sig}:*:MalShare.{tag}-{n}{suffix}:73&#39;)
+                </p>
+                <p>
+                    
+                        Converts an iterable of strings into a simple ClamAV database. <br />
+                    
+                         <br />
+                    
+                        The created signatures are in the following form by default: <br />
+                    
+                          {sig}:*:MalShare.{tag}-{n}{suffix}:73 <br />
+                    
+                         <br />
+                    
+                        lines (list of strings): List of the signatures <br />
+                    
+                        tag (string): How to &quot;name&quot; all signatures. <br />
+                    
+                        suffix (string): Second &quot;name&quot; for the signatures. <br />
+                    
+                        template (string): formatable string for the conversion <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    malshare_by_date</b>(pub_date=None, suffix=&#39;&#39;)
+                </p>
+                <p>
+                    
+                        Download a single day&#x27;s MalShare hashes and convert them. <br />
+                    
+                         <br />
+                    
+                        pub_data (date object): The date. <br />
+                    
+                        suffix (string): A suffix to add to the signatures name. <br />
+                    
+                          Usefull to indicate a different algorithm. <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    malshare_by_dates</b>(start=None, stop=None, suffix=&#39;&#39;, silent=False)
+                </p>
+                <p>
+                    
+                        Downloads MalShare database from start to stop. <br />
+                    
+                         <br />
+                    
+                        start (date or None): The start date. None equals today - 1 day. <br />
+                    
+                        stop (date or None): The stop date. None equals today - 15 days, <br />
+                    
+                        suffix (string): A suffix to add to the signatures name.    Usefull to indicate a different algorithm. <br />
+                    
+                        silent (boolean): Silence any errors (skip days with errors). <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    malshare_current</b>(suffix=&#39;&#39;, forward=None)
+                </p>
+                <p>
+                    
+                        Download today&#x27;s MalShare signatures <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    malshare_update</b>(filename, suffix=&#39;&#39;)
+                </p>
+                <p>
+                    
+                        Update a ClamAV database with MalShare signatures. <br />
+                    
+                </p>
+            
+                <p class="naming"><small> 
+                 </small><b class="naming">
+                    validated_app</b>(*args, **kw)
+                </p>
+                <p>
+                    
+                        &#x27;application&#x27; wrapped with wsgiref.validate.validator <br />
+                    
+                </p>
+            
+        
+
+
+        
+
+        
+
+    </body>
+</html>
