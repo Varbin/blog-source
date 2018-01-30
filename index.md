@@ -9,7 +9,7 @@ subject: Python, Sicherheit
 
 ## Sicherheitslücken
 
- - [Sicherheitslücke in requests-cache][1] (19. Januar 2018)]
+ - [Sicherheitslücke in requests-cache][1] (19. Januar 2018)
  - Sicherheitsluecken im MNSpro-Schulnetzwerk
   - [Übersicht][2] (26. Januar 2018)
   - [Auswirkungen][3] (26. Januar 2018)
