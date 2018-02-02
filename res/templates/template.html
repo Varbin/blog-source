@@ -8,12 +8,27 @@
         <link rel="alternate" type="application/rss+xml"
             title="RSS" href="/index.rss">
         <meta charset='UTF-8'>
-        <meta referrer="no-referrer, strict-origin-when-cross-origin" />
+        <meta name="referrer" content="no-referrer, strict-origin-when-cross-origin" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta author="{{ .Doc.author }}">
-        <meta description="{{ .Doc.description }}">
-        <meta subject="{{ .Doc.subject }}">
-        <meta date="{{ .Doc.date }}">
+        <meta name="author" content="{{ .Doc.author }}">
+        <meta name="description" content="{{ .Doc.description }}">
+        <meta name="subject" content="{{ .Doc.subject }}">
+        <meta name="date" content="{{ .Doc.date }}">
+
+        <meta property="og:locale" content="de_DE" />
+        <meta property="og:title" content="{{ .Doc.title }}" />
+        <meta property="og:description" content="{{ .Doc.description }}">
+        <meta property="og:site_name" content="sbiewald.de">
+
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content="{{ .Doc.date }}">
+        <meta property="article:section" content="IT">
+        
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@sbiewald_de">
+        <meta property="og:title" content="{{ .Doc.title }}" />
+        <meta property="og:description" content="{{ .Doc.description }}" />
+
     </head>
     <body>
         <div id="wrapper">
