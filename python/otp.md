@@ -32,7 +32,7 @@ Identität beweisen sollen:
 
 *Quelle:* vgl. [Wikipedia/Zwei-Faktor-Authentifizierung][8]
  
-Anstelle nur eines Faktors (i.d.R. Passwort) wird nun ein zweiter verlangt, idealerweise aus einem anderen Bereich.
+Anstelle nur eines Faktors (i.d.R. Passwort) wird nun zusätzlich mindestens ein Zweiter verlangt, idealerweise ein anderer (z.B. PIN+Fingerabdruck oder Passwort+Mobilbenachrichtigung).
 
 Zur Kontrolle des Faktors "Besitzes" werden häufig Einmalkennwörter auf Basis eines vorher ausgetauschten Schlüssel und 
 entweder auf Basis der aktuellen Zeit oder eines Zählers erzeugt. Die Verfahren werden TOTP (zeitbasiert) oder 
