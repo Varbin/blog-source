@@ -1,7 +1,7 @@
 ---
 title: Sicherheitslücken in der Software MNSpro Schulnetzwerk
 author: Simon Biewald
-description: Gesammelte Übersicht von Sicherheitslücken im MNSpro-Schulnetzwerk
+description: Im MNSpro-Schulnetzwerk stecken gewaltige Sicherheitslücken, trotz anderweitiger Versprechen - eine gesammelte Übersicht.
 subject: Sicherheit, MNSpro
 date: 2018-01-26
 ---
