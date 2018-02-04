@@ -31,8 +31,10 @@ subject: Python, Sicherheit
 ## Konfiguration
 
  - [OpenNTPD][40] (18. Oktober 2016)
+ - [IP-Adressen in Webserverlogs datenschutzgemäß anonymisieren][41] (4. Februar 2018)
  
  [40]: /konfiguration/openntpd
+ [41]: /konfiguration/ip-adressen
 
 ## Sonstiges
 

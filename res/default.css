@@ -194,9 +194,13 @@ a.boxlink:hover, a.boxlink:active {
   padding-left: 15px;
   padding-top: 15px;
   padding-bottom: 15px;
-  border-left: 3px solid #036;
-  background-color: #7ad;
-  color: #025;
+  border-left: 3px solid #090;
+  background-color: #0c0;
+  color: #fff;
+}
+
+.blogarticle .note a {
+  color: #fff;
 }
 
 .blogarticle table {

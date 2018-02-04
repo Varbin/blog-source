@@ -34,7 +34,7 @@ def sntp(server="pool.ntp.org", port=123, timeout=5):
     sock.close()
     return data[11] + float(data[12]) / 2**32 - DELTA</code></pre>
 
-[sntp.py](sntp.py); *Die verlinkte Version steht unter 3-Klausel-BSD-Lizenz und 
+[sntp.py](sntp.py); *Die verlinkte Version steht unter 3-Klausel-BSD-Lizenz und ist
 gegebenenfalls neuer.*
 
 ### Beispiel

@@ -32,7 +32,7 @@ Folgende Sicherheitslücken wurden entdeckt:
  
 <blockquote class="note">
     Welche Auswirkungen haben diese Sicherheitslücken eigentlich ganz praktisch?
-    Lesen dieses in dem Kurzartikel über die 
+    Lesen Sie dies in dem Kurzartikel über die
     <a href="/sicherheit/mnspro/auswirkungen">Auswirkungen der Sicherheitslücken in MNSpro</a>.
 </blockquote>
  
