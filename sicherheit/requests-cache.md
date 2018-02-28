@@ -14,7 +14,7 @@ die unter Umständen die Ausführung beliebiger
 Befehle ermöglicht.
 
 `requests-cache` ermöglicht das Zwischenspeichern von Anworten auf Netzwerkanfragen der 
-Python-Bibliothek`requests`. Die Antworten werden mit `pickle` serialisiert. Da die 
+Python-Bibliothek `requests`. Die Antworten werden mit `pickle` serialisiert. Da die 
 serialisierten Daten auf möglicherweise nicht vertrauenswürdigen Netzwerkorten
 abgelegt werden, können, sofern Schreibzugriff auf diese besteht, spezielle 
 Daten auf diesen abgelegt werden, welche von `requests-cache` wieder geladen und
