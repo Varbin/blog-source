@@ -13,7 +13,7 @@ in Schulen einfach ermöglichen soll.
 Neben eines obligatorisch im Netzwerk eingesetzten Proxyservers 
 zur Filterung von nicht jugendfreien, so wie den Unterricht störenden 
 Inhalten (z.B. soziale Netzwerke), ist, damit Lehrer die Computer der 
-Schüler steuern können, ist auf allen Computern der "MNSpro-Clientservice" 
+Schüler steuern können, ist auf allen Computern der "Unterrichtszentralendienst" 
 installiert.
 Da über diesen Dienst z.B. aus der Ferne Programme gestartet werden
 können, wäre eine Sicherheitslücke in diesem Teil besonders 
@@ -23,12 +23,12 @@ katastrophal.
 
 Folgende Sicherheitslücken wurden entdeckt:
 
- - Statisches Passwort im VNC-Server des MNSpro-Clientservice
- - Mögliche Sicherheitslücke: Statisches Passwort eines Administratorkontos
- - Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (1)
- - Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (2) und 
+ - Statisches Passwort im VNC-Server des Unterrichtszentralendienst
+ - Mögliche Sicherheitslücke: Statisches Passwort eines Testkontos
+ - Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (1)
+ - Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (2) und
    mangelhafte Berechtigungsprüfung der MMNpro-Lehrersoftware
- - Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (3)
+ - Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (3)
  
 <blockquote class="note">
     Welche Auswirkungen haben diese Sicherheitslücken eigentlich ganz praktisch?
@@ -36,12 +36,12 @@ Folgende Sicherheitslücken wurden entdeckt:
     <a href="/sicherheit/mnspro/auswirkungen">Auswirkungen der Sicherheitslücken in MNSpro</a>.
 </blockquote>
  
-## Statisches Passwort im VNC-Server des MNSpro-Clientservice
+## Statisches Passwort im VNC-Server des Unterrichtszentralendienst
 
-Zu dem MNSpro-Clientservice gehört ein VNC-Server, über welchen ein 
+Zu dem Unterrichtszentralendienst gehört ein VNC-Server, über welchen ein
 Computer ferngesteuert werden kann. Da auch z.B. ein Administrator 
 einen Lehrercomputer steuern können soll, wird dieser auch auf 
-wirklich jedem Computer mit MNSpro-Clientservice gestartet.
+wirklich jedem Computer mit Unterrichtszentralendienst gestartet.
 
 Als VNC-Server wird TightVNC von Constantin Kaplinsky eingesetzt. 
 Die VNC-Verbindungen sind mit einem Passwort geschützt, welches in 
@@ -111,7 +111,7 @@ Daraus erfolgten Verzögerungen im Unterrichtsgeschehen.
 [<img class="w33" src="AIX-2.png">](AIX-2.png)
 [<img class="w33" src="AIX-3.png">](AIX-3.png)
 
-## Mögliche Sicherheitslücke: Statisches Passwort eines Administratorkontos
+## Mögliche Sicherheitslücke: Statisches Passwort eines Testkontos
 
 Der auf Microsoft-Forefront basierende Schulfilter kann über eine 
 Weboberfläche (erreichbar mit HTTPS unter Port 8443 des Proxyservers) 
@@ -128,7 +128,7 @@ Dieses Nutzerkonto ist zwar ein gültiges Windowskonto und wird von
 MNSpro als Administratorkonto erkannt, trotzdem ist die Verwaltungssoftware 
 damit nicht ausführbar. Trotzdem sind die von MNSpro hinzugefügten "Schutzmaßnahmen",
 wie die deaktiviert Kommandozeile, Blockierung von `Regedit` und das Verstecken der 
-Festplatte `C:`, nicht aktiv (diese können jedoch sowieso meist trivial umgangen 
+Festplatte `C:`, nicht aktiv (diese können jedoch sowieso trivial umgangen
 werden).
 Die genauen Berechtigungen des Kontos sind damit unklar. 
 
@@ -154,20 +154,19 @@ Bemerkung:
 
 Das Konto `tifadmin` kann entfernt oder als Windowskonto deaktiviert werden.
 
-## Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (1)
+## Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (1)
 
-Der MNSpro-Clientservice stellt für bestimmte Funktionen der Lehrer-
-software eine REST-HTTP-Api bereit. Es gibt folgende Endpunkte:
+Der Unterrichtszentralendienst stellt für bestimmte Funktionen der Lehrer-
+software eine REST-HTTP-Api bereit.
 
- - VNC-Passwort: `/api/getRemotingCredentials`
- - Screenshot (löst Warnung aus): `/api/GetScreenshot?width=[Breite]&height=[Höhe]&user=[Nutzer]&machine=[Computername]`
- - Sperrt Bildschirm: `/api/LockDesktop`
- - Entsperrt Bildschirm: `/api/UnlockDesktop`
- - Sperrt-/Entsperrt optische Laufwerke: `/api/SetCdRomState?enable=[False/True]`
- - Sperrt-/Entsperrt USB: `/api/SetUsbState?enable=[False/True]`
- - Sperrt-/Entsperrt Internetzugang: `/api/SetInternetState?enable=[False/True]`
- - Setzt Ton: `/api/SetVolumeInformation?ismute=[True/False]&volume=[Lautstärke]`
- 
+<blockquote class="note">
+    Für weitergehende Informationen über die API-Endpunkte lesen Sie jetzt den
+    Kurzartikel über die
+    <a href="/sicherheit/mnspro/apis", title="Api-Endpunkte im MNSpro Schulnetzwerk">
+    Api-Endpunkte im MNSpro Schulnetzwerk</a>.
+</blockquote>
+
+
 Ursprünglich waren diese Endpunkte nur durch eine zufällige Portnummer 
 im Bereich 50 000 - 60 000 "geschützt" (welche außerdem über eine API auf dem
 Domain Controller abrufbar ist). Damit war eine vollständige 
@@ -187,7 +186,7 @@ Tage danach in der Lehrersoftware hinzugefügt wurde.
 
 <small>CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:P/RL:O/RC:C/CR:L/IR:L/AR:L</small>
 
-## Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (2)
+## Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (2)
 
 Die MNSpro-Clientsoftware enthielt als Reaktion auf vorherige 
 Sicherheitslücke eine Authentifizierung. Diese besteht darin aus einem 
@@ -195,7 +194,7 @@ im Quellcode stehenden "geheimen", aber geteiltem Schlüssel, der Zeit (zum
 Replay-Schutz), der URL, der HTTP-Methode und dem SHA256-Hash eventueller
 POST-Daten einen Einmalschlüssel zu generieren.
 
-Da entsprechende Funktion sogar aus den mitgelieferten DLLs "exportiert"
+Da entsprechende Funktionen sogar aus den mitgelieferten DLLs "exportiert"
 ist, ist auch diese Sicherheitslücke trivial auszunutzen.
 
 ```python
@@ -244,7 +243,7 @@ der "geheime", im Quelltext stehende Schlüssel geändert.
 
 <small>CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:P/RL:O/RC:C/CR:L/IR:L/AR:L</small>
 
-## Mangelhafte Berechtigungsprüfung des MNSpro-Clientservice (3)
+## Mangelhafte Berechtigungsprüfung des Unterrichtszentralendienst (3)
 
 Entsprechende Funktionen werden als Reaktion nicht mehr 
 vollständig exportiert und es wird geprüft, ob das 
@@ -265,19 +264,22 @@ verbessert werden.
 
 | Art              | Broken Authentication / Remote-Code-Execution |
 |------------------|--------------------------------|
-| Schwere (CVSS)   | 8.6/10                         |
+| Schwere (CVSS)   | 8.3/10                         |
 | Datum Entdeckung | 20. Dezember 2017              |
 | Datum Kontakt    | 10. Januar 2018                |
 | Datum Behebung   | NOCH OFFEN                     |
 
-<small>CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:P/RL:U/RC:C/CR:L/IR:L/AR:L</small>
+<a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:P/RL:U/RC:R/CR:L/IR:L/AR:L/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X">
+    <small>CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:P/RL:U/RC:R/CR:L/IR:L/AR:L</small>
+</a>
+
 
 ## Sonstige Schwachstellen
 
 Eine konzeptionelle Schwachstelle ist, dass darauf gesetzt wird, 
 dass die Lehrersoftware nicht unbefugt gestartet werden kann. 
 Bis zur Behebung der dritten mangelhaften Berechtigungsprüfung 
-des MNSpro-Clientservice war die Überprüfung der Berechtigung der 
+des Unterrichtszentralendienst war die Überprüfung der Berechtigung der
 Lehrersoftware wie folgt:
 
  - HTTP-REST-Anfrage an den Domain Controller ob der angemeldete Nutzer Lehrer 
@@ -286,3 +288,8 @@ Lehrersoftware wie folgt:
  
 Mit aktiven MitM-Angriffen könnte so als Schüler weitgehender 
 Zugriff erlangt werden. Auch dieses soll intern bereits behoben sein.
+
+## Fazit
+
+Die Werbeaussage, dass das MNSpro Schulnetzwerk "sicher" sei,
+kann angesichts dieser Lücken nicht gehalten werden.

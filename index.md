@@ -10,13 +10,22 @@ subject: Python, Sicherheit
 ## Sicherheitslücken
 
  - [Sicherheitslücke in requests-cache][1] (19. Januar 2018)
- - Sicherheitsluecken im MNSpro-Schulnetzwerk
+ - Sicherheitslücken im MNSpro-Schulnetzwerk
   - [Übersicht][2] (26. Januar 2018)
   - [Auswirkungen][3] (26. Januar 2018)
+  - [Api-Endpunkte][4] (18. März 2018)
 
  [1]: /sicherheit/requests-cache
- [2]: /sicherheit/mnspro/
- [3]: /sicherheit/mnspro/auswirkungen
+ [2]: /sicherheit/mnspro/ "Sicherheitslücken in der Software MNSpro Schulnetzwerk"
+ [3]: /sicherheit/mnspro/auswirkungen "Auswirkungen der Sicherheitslücken im MNSpro-Schulnetzwerk"
+ [4]: /sicherheit/mnspro/apis "Api-Endpunkte im MNSpro Schulnetzwerk"
+
+## Sicherheit - Diverses
+
+  - ClamAV
+   - [Zusätzliche Signaturen: PHP-Backdoors][10] (18. März 2018)
+
+ [10]: /sicherheit/clamav/php "Zusätzliche ClamAV-Signaturen zur Erkennung von PHP-Backdoors"
 
 ## Python
 

@@ -5,7 +5,7 @@ description: Impressum
 
 # Impressum
 
-Angaben gemäß § 5 TMG / Verantwortlich für den Inhalt nach § 55 RStV:
+Angaben gemäß § 5 TMG:
 
 <address>
 Simon Biewald<br>
