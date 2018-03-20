@@ -43,6 +43,8 @@ Trojan.Webshell.Gamma:7:*:6d79202476657273696f6e203d202767616d6d6120776562207368
 [sbiewald-php.ndb](sbiewald-php.ndb);
 *Die verlinkte Datei steht unter 3-Klausel-BSD-Lizenz.*
 
+### Verschleierungserkennung
+
 [sbiewald-obf.ndb](sbiewald-obf.ndb);
 *Die verlinkte Datei steht unter 3-Klausel-BSD-Lizenz.*
 
