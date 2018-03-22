@@ -92,4 +92,4 @@ Außerdem existiert auch folgende Api (unter `https://mnsserver.[Domainname]:873
    (bei den zurückgegebenen JSON-Daten muss "Result" "2" entsprechen.)
  - Ruft ungelesene Nachrichten ab (*ungetestet*): `MailManagerGetUnreadMails?name=[UPN]`
 
-Authentifiziert wird sich mit dem URL-Parameter `Api_key=aachen0815`. UPN ist `Nutzername@domain`
+Authentifiziert wird sich mit einem URL-Parameter, UPN ist `Nutzername@domain`
