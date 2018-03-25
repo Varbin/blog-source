@@ -3,7 +3,7 @@ title: Mit Clamd + OpenSSH Virenscans auslagern
 author: Simon Biewald
 description: Antivirenscans können hohe Belastungen verursachen - mit dem mitgelieferten ClamAV-Daemon diese einfach sicher auslagern.
 subject: ClamAV, Clamd, Antivirus, SSH
-date: 2018-03-18T20:30
+date: 2018-03-25T20:16
 ---
 
 # Mit `clamd` + OpenSSH Virenscans auslagern
