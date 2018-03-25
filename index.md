@@ -27,7 +27,7 @@ subject: Python, Sicherheit
    - [Mit Clamd + OpenSSH Virenscans auslagern][11] (25. März 2018)
 
  [10]: /sicherheit/clamav/php "Zusätzliche ClamAV-Signaturen zur Erkennung von PHP-Backdoors"
-[ 10]: /sicherheit/clamav/clamd "Mit Clamd + OpenSSH Virenscans auslagern"
+ [11]: /sicherheit/clamav/clamd "Mit Clamd + OpenSSH Virenscans auslagern"
 
 ## Python
 
