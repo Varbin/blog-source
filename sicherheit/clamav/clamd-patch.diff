@@ -1,0 +1,16 @@
+--- a/clamd/session.c
++++ b/clamd/session.c
+@@ -562,11 +562,13 @@ int execute_or_dispatch_command(client_conn_t *conn, enum commands cmd, const ch
+     }
+ 
+     switch (cmd) {
++    /* disable SHUTDOWN *
+        case COMMAND_SHUTDOWN:
+            pthread_mutex_lock(&exit_mutex);
+            progexit = 1;
+            pthread_mutex_unlock(&exit_mutex);
+            return 1;
++       */
+        case COMMAND_RELOAD:
+            pthread_mutex_lock(&reload_mutex);
+            reload = 1;
