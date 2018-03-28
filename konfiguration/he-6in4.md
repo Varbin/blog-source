@@ -3,7 +3,7 @@ title: Hurricane Electric 6in4-Tunnel unter FreeBSD einrichten
 author: Simon Biewald
 description: Mit HE kann einfach eine IPv6 Anbindung in IPv4 Netzen erfolgen - wie wird ein permanenter Tunnel dafür korrekt eingerichtet?
 subject: HE, Tunnel, FreeBSD, 6in4, tunnelbroker
-date: 2018-04-28:T19:18
+date: 2018-04-28T19:18
 ---
 
 # Hurricane Electric 6in4-Tunnel unter FreeBSD einrichten

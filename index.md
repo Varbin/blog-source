@@ -43,7 +43,7 @@ subject: Python, Sicherheit
 
  - [OpenNTPD][40] (18. Oktober 2016)
  - [IP-Adressen in Webserverlogs datenschutzgemäß anonymisieren][41] (4. Februar 2018)
- - [Hurricane Electric 6in4-Tunnel unter FreeBSD einrichten][42] (27. März 2018)
+ - [Hurricane Electric 6in4-Tunnel unter FreeBSD einrichten][42] (28. März 2018)
  
  [40]: /konfiguration/openntpd
  [41]: /konfiguration/ip-adressen
