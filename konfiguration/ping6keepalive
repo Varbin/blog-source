@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# PROVIDE: ping6keepalive
+# REQUIRE: networking
+
+. /etc/rc.subr
+
+name="ping6keepalive"
+desc="Ping6 daemon for keepalive"
+rcvar="${name}_enable"
+
+load_rc_config ${name}
+
+: ${ping6keepalive_enable:="NO"}
+
+pidfile="/var/run/${name}.pid"
+procname="/sbin/ping6"
+command="/usr/sbin/daemon"
+command_args="-u nobody -p ${pidfile} ${procname} -i 30 freebsd.org < /dev/null >> /dev/null 2>&1"
+
+run_rc_command "$1"

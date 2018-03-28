@@ -1,5 +1,6 @@
 ---
 title: Datenschutzerklärung
+description: Angewandter Datenschutz in der Datenschutzerklärung zu sbiewald.de
 ---
 
 # Datenschutzerklärung
