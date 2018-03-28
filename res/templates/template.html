@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="de">
     <head>
-        <title>{{ .Doc.title }} - sbiewald ▪ Blog</title>
+        <title>{{ html .Doc.title }} - sbiewald ▪ Blog</title>
         <link rel="stylesheet" href="/res/default.css">
         <link rel="stylesheet" href="/res/prism/prism.css">
         <link rel="icon" href="/favicon.ico" type="image/x-icon" /> 
@@ -10,20 +10,27 @@
         <meta charset='UTF-8'>
         <meta name="referrer" content="no-referrer, strict-origin-when-cross-origin" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="{{ .Doc.author }}">
-        <meta name="description" content="{{ .Doc.description }}">
-        <meta name="subject" content="{{ .Doc.subject }}">
-        <meta name="date" content="{{ .Doc.date }}">
 
         <meta property="og:locale" content="de_DE" />
-        <meta property="og:title" content="{{ .Doc.title }}" />
-        <meta property="og:description" content="{{ .Doc.description }}">
+        <meta property="og:title" content="{{ html .Doc.title }}" />
         <meta property="og:site_name" content="sbiewald.de">
-
-        <meta property="og:type" content="article" />
-        <meta property="article:published_time" content="{{ .Doc.date }}">
-        <meta property="article:section" content="IT">
-        
+        {{ if .Doc.date }}<meta property="article:published_time" content="{{ html .Doc.date }}"><meta name="date" content="{{ html .Doc.date }}">{{ end }}
+        {{ if .Doc.description }}<meta name="description" content="{{ html .Doc.description }}"><meta property="og:description" content="{{ html .Doc.description }}">{{ end }}
+        {{ if .Doc.subject }}<meta name="subject" content="{{ html .Doc.subject }}">{{ end }}
+        {{ if .Doc.author }}<meta name="author" content="{{ html .Doc.author }}">{{ end }}
+        {{ if and (ne .URL.Path "/") (ne .URL.Path "/impressum.md") (ne .URL.Path "/datenschutz.md") }}<meta property="og:type" content="article" /><meta property="article:section" content="IT">
+        <script type="application/ld+json">
+            { "@context": "http://schema.org", "@type": "TechArticle", "genre": "IT", 
+                {{ if .Doc.subject }} "keywords": "{{ js .Doc.subject }}", {{ end }}
+                {{ if .Doc.date }} "datePublished": "{{ js .Doc.date }}", {{ end }}
+                {{ if .Doc.description }} "description": "{{ js .Doc.description }}", {{ end }}
+                {{ if .Doc.author }} "author": {"@type": "Person", "name": "{{ js .Doc.author }}"},{{ end }}
+                "image": "https://sbiewald.de/favicon.ico", "headline": "{{ js .Doc.title }}"} </script>
+        {{ else if eq .URL.Path "/" }}
+        <script type="application/ld+json">
+            { "@context": "http://schema.org", "@type": "WebSite", "genre": "IT", 
+              "author": {"@type": "Person","name": "Simon Biewald"}}</script>
+        {{ end }}
         <meta name="twitter:card" content="summary">
         <meta name="twitter:site" content="@sbiewald_de">
     </head>
