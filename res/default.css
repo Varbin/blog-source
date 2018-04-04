@@ -259,3 +259,11 @@ a.nextlink {
 a.nextlink:hover, a.nextlink:active  {
     text-decoration: underline;
 }
+
+#mitm {
+    color: red;
+}
+
+#mitm_no {
+    color: green;
+}

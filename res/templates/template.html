@@ -62,7 +62,12 @@
             </main>
             <footer>
                 <div class="container">
-                    <p>© 2016 - {{ .Now "2006" }} Simon Biewald &mdash; <a href="/impressum">Impressum</a> &mdash; <a href="/datenschutz">Datenschutz</a></p>
+                    <p>
+                        © 2016 - {{ .Now "2006" }} Simon Biewald &mdash; <a href="/impressum">Impressum</a> &mdash; <a href="/datenschutz">Datenschutz</a> -
+                        <a href="https://caddyserver.com/docs/mitm-detection">
+                        {{ if .IsMITM }}<b><span id="mitm">MitM-Angriff erkannt.</span></b>
+                        {{ else }}<span id="mitm_no">Kein MitM-Angriff erkannt.</span>{{ end }}</a>
+                    </p>
                 </div>
             </footer>
         </div>
