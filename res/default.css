@@ -16,7 +16,7 @@ body {
     line-height: 1.5;
 }
 
-p, a {
+p, .boxlink {
     font-family: "Open Sans", "Arial", sans-serif;
     font-size: 13px;
 }
@@ -157,7 +157,7 @@ a.boxlink:hover, a.boxlink:active {
     font-family: inherit;
 }
 
-.blogarticle p, .blogarticle li, .blogarticle a {
+.blogarticle p, .blogarticle li {
     font-size: 16px;
 }
 

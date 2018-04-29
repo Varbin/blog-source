@@ -18,6 +18,9 @@
         {{ if .Doc.description }}<meta name="description" content="{{ html .Doc.description }}"><meta property="og:description" content="{{ html .Doc.description }}">{{ end }}
         {{ if .Doc.subject }}<meta name="subject" content="{{ html .Doc.subject }}">{{ end }}
         {{ if .Doc.author }}<meta name="author" content="{{ html .Doc.author }}">{{ end }}
+        <script type="application/ld+json">
+            { "@context": "http://schema.org", "@type": "WebSite", "genre": "IT", 
+              "author": {"@type": "Person","name": "Simon Biewald"}}</script>
         {{ if and (ne .URL.Path "/") (ne .URL.Path "/impressum.md") (ne .URL.Path "/datenschutz.md") }}<meta property="og:type" content="article" /><meta property="article:section" content="IT">
         <script type="application/ld+json">
             { "@context": "http://schema.org", "@type": "TechArticle", "genre": "IT", 
@@ -26,10 +29,6 @@
                 {{ if .Doc.description }} "description": "{{ js .Doc.description }}", {{ end }}
                 {{ if .Doc.author }} "author": {"@type": "Person", "name": "{{ js .Doc.author }}"},{{ end }}
                 "image": "https://sbiewald.de/favicon.ico", "headline": "{{ js .Doc.title }}"} </script>
-        {{ else if eq .URL.Path "/" }}
-        <script type="application/ld+json">
-            { "@context": "http://schema.org", "@type": "WebSite", "genre": "IT", 
-              "author": {"@type": "Person","name": "Simon Biewald"}}</script>
         {{ end }}
         <meta name="twitter:card" content="summary">
         <meta name="twitter:site" content="@sbiewald_de">
@@ -60,7 +59,7 @@
                 {{ .Doc.body }}
                 </article>
             </main>
-            <footer>
+            <footer role="contentinfo">
                 <div class="container">
                     <p>
                         © 2016 - {{ .Now "2006" }} Simon Biewald &mdash; <a href="/impressum">Impressum</a> &mdash; <a href="/datenschutz">Datenschutz</a> -
