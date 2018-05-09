@@ -55,6 +55,14 @@ footer a {
     color: #333;
 }
 
+figure {
+    text-align: center;
+}
+
+figure figcaption {
+    font-style: italic;
+}
+
 #logo_box {
     color: white;
     padding: 2px;

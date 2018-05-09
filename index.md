@@ -20,6 +20,10 @@ subject: Python, Sicherheit
  [3]: /sicherheit/mnspro/auswirkungen "Auswirkungen der Sicherheitslücken im MNSpro-Schulnetzwerk"
  [4]: /sicherheit/mnspro/apis "Api-Endpunkte im MNSpro Schulnetzwerk"
 
+## Sicherheit - Analyse
+
+ - [Analyse: Lenovo-Cryptominer](/sicherheit/analyse/lenovo "Analyse: Lenove Cryptominer") (9. Mai 2018)
+
 ## Sicherheit - Diverses
 
   - ClamAV

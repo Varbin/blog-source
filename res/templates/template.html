@@ -28,7 +28,8 @@
                 {{ if .Doc.date }} "datePublished": "{{ js .Doc.date }}", {{ end }}
                 {{ if .Doc.description }} "description": "{{ js .Doc.description }}", {{ end }}
                 {{ if .Doc.author }} "author": {"@type": "Person", "name": "{{ js .Doc.author }}"},{{ end }}
-                "image": "https://sbiewald.de/favicon.ico", "headline": "{{ js .Doc.title }}"} </script>
+                "image": {{ if .Doc.image }} "{{ js .Doc.image }}" {{else}} "https://sbiewald.de/favicon.ico" {{end}},
+                "headline": "{{ js .Doc.title }}"} </script>
         {{ end }}
         <meta name="twitter:card" content="summary">
         <meta name="twitter:site" content="@sbiewald_de">
