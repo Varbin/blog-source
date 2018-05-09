@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to PEP272 Encryption’s documentation! &mdash; pep272-encryption  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> pep272-encryption
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How-To</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Library reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements and Sources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">pep272-encryption</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to PEP272 Encryption’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-pep272-encryption-s-documentation">
+<h1>Welcome to PEP272 Encryption’s documentation!<a class="headerlink" href="#welcome-to-pep272-encryption-s-documentation" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://travis-ci.org/Varbin/pep272-encryption"><img alt="https://img.shields.io/travis/Varbin/pep272-encryption.svg" src="https://img.shields.io/travis/Varbin/pep272-encryption.svg" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/Varbin/pep272-encryption"><img alt="https://img.shields.io/codecov/c/github/Varbin/pep272-encryption/master.svg" src="https://img.shields.io/codecov/c/github/Varbin/pep272-encryption/master.svg" /></a>
+<p><a class="reference external" href="https://sbiewald.de/docs/pep272-encryption/">Documentation</a></p>
+<p>To prevent reinventing the wheel while creating a
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0272/">PEP-272</a> interface for a new
+block cipher encryption, this library aims to create an extensible framework
+for new libraries.</p>
+<p>Currently following modes of operation are supported:</p>
+<ul class="simple">
+<li>ECB</li>
+<li>CBC</li>
+<li>CFB</li>
+<li>OFB</li>
+<li>CTR</li>
+</ul>
+<p>The <a class="reference external" href="https://tools.ietf.org/html/rfc4880#section-13.9">PGP mode of operation</a>
+is not supported. It may be added in the future.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>In this example <code class="docutils literal notranslate"><span class="pre">encrypt_aes(key,</span> <span class="pre">block)</span></code> will encrypt one block of AES while
+<code class="docutils literal notranslate"><span class="pre">decrypt_aes(key,</span> <span class="pre">block)</span></code> will decrypt one.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pep272_encryption</span> <span class="k">import</span> <span class="n">PEP272Cipher</span><span class="p">,</span> <span class="n">MODE_ECB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">AESCipher</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="sd">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="sd">   PEP-272 cipher class for AES</span>
+<span class="gp">... </span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="gp">... </span>   <span class="n">block_size</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="gp">...</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="nf">encrypt_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="n">encrypt_aes</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="nf">decrypt_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="n">decrypt_aes</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">AESCipher</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="n">MODE_ECB</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">16</span><span class="p">)</span>
+<span class="go">b&#39;f\xe9K\xd4\xef\x8a,;\x88L\xfaY\xca4+.&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>This project is licensed under <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>
+(public domain).</p>
+</div>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<p>This documentation is structured.</p>
+<p>It starts with the <a class="reference internal" href="install.html#install"><span class="std std-ref">Installation</span></a> instructions.
+The second chapter is <a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Tutorial</span></a>, giving a quick example without
+explaining too much. The <a class="reference internal" href="howto.html#howto"><span class="std std-ref">How-To</span></a> gives practical solutions
+to common problems. Look up in the <a class="reference internal" href="api.html#api"><span class="std std-ref">Library reference</span></a>.
+The <a class="reference internal" href="discussion.html#discussion"><span class="std std-ref">Discussions</span></a> section explains in-depth knowledge of topics important
+in the context of the library to get a deeper understanding of the software.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#development-version">Development version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#supported-platforms">Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-tea-block-cipher">0. The TEA block cipher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#project-skeleton">1. Project skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setting-parameters">2. Setting parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#subclassing">3. Subclassing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#alternative-constructor-new-method">4. Alternative constructor (<cite>new</cite>-method)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#full-example-code">5. Full example code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#usage">6. Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How-To</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#new-mode-of-operation">New mode of operation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Library reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#the-pep272cipher-class">The PEP272Cipher class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#block-cipher-mode-of-operation">Block cipher mode of operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-pep272_encryption.util">Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-pep272_encryption.version">Version information and metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussion.html#block-cipher-mode-of-operation">Block cipher mode of operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussion.html#speed">Speed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements and Sources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ack.html#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ack.html#sources">Sources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="master">
+<h2>0.2 (master)<a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>New: Documentation</li>
+<li>New: Optional extensions module for more speed. CBC and CFB are now two
+times faster!</li>
+<li>Changed: <code class="docutils literal notranslate"><span class="pre">PEP272Cipher.IV</span></code> is static now.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="latest-stable">
+<h2>0.1 (latest stable)<a class="headerlink" href="#latest-stable" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Initial release.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Simon Biewald.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

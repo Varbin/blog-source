@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Library reference &mdash; pep272-encryption  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Discussions" href="discussion.html" />
+    <link rel="prev" title="How-To" href="howto.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pep272-encryption
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How-To</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Library reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-pep272cipher-class">The PEP272Cipher class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#block-cipher-mode-of-operation">Block cipher mode of operation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#electronic-code-book-mode-ecb">Electronic Code Book Mode (ECB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cipher-block-chaining-mode-cbc">Cipher Block Chaining Mode (CBC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cipher-feedback-mode-cfb">Cipher Feedback Mode (CFB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-feedback-ofb">Output Feedback (OFB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#counter-mode-of-operation">Counter mode of operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pep272_encryption.util">Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pep272_encryption.version">Version information and metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements and Sources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pep272-encryption</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Library reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pep272_encryption">
+<span id="library-reference"></span><span id="api"></span><h1>Library reference<a class="headerlink" href="#module-pep272_encryption" title="Permalink to this headline">¶</a></h1>
+<p>This module creates PEP-272 cipher object classes for building block ciphers
+in python.</p>
+<p>To use, inherit the PEP272Cipher and overwrite
+<code class="docutils literal notranslate"><span class="pre">encrypt_block</span></code> or <code class="docutils literal notranslate"><span class="pre">decrypt_block(self,</span> <span class="pre">key,</span> <span class="pre">string,</span> <span class="pre">**kwargs)</span></code> methods
+and set the block_size attribute.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">YourCipher</span><span class="p">(</span><span class="n">PEP272Cipher</span><span class="p">):</span>
+    <span class="n">block_size</span><span class="o">=</span><span class="mi">8</span>
+
+    <span class="k">def</span> <span class="nf">encrypt_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">decrypt_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<div class="section" id="the-pep272cipher-class">
+<h2>The PEP272Cipher class<a class="headerlink" href="#the-pep272cipher-class" title="Permalink to this headline">¶</a></h2>
+<p>Subclass and overwrite the PEP272Cipher.encrypt_block and
+PEP272Cipher.decrypt_block methods and the block_size attribute.</p>
+<dl class="class">
+<dt id="pep272_encryption.PEP272Cipher">
+<em class="property">class </em><code class="descclassname">pep272_encryption.</code><code class="descname">PEP272Cipher</code><span class="sig-paren">(</span><em>key</em>, <em>mode</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.PEP272Cipher" title="Permalink to this definition">¶</a></dt>
+<dd><p>A cipher class as defined in <a class="reference external" href="https://www.python.org/dev/peps/pep-0272/">PEP-272</a>.</p>
+<p>Following parameters must be passed in every case:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The symmetric key to use for encryption.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – The mode of operation to use.        For valid values see Reference/<a class="reference internal" href="#api-modes"><span class="std std-ref">Block cipher mode of operation</span></a>.</li>
+<li><strong>**kwargs</strong> – See below.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Depending on the blockcipher mode of operation one or multiple of the
+following arguments must be passed depending on the mode of operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>IV</strong> or <strong>iv</strong> (<cite>bytes</cite>) –             A unique bytestring with once the block size in             length. For security reasons it should be unpredictable and must             never be used twice for the same key.                         <strong>Required for</strong>: <em>CBC</em>, <em>CFB</em> and <em>OFB</em> modes.</li>
+</ul>
+<ul class="last simple">
+<li><strong>segment_size</strong> (<cite>int</cite>) –             The segment size for one encryption “segment” of             CFB mode in bits. It must be multiple of 8 (only byte-sized             operations are allowed) and the maximum size is the block size.                         <strong>Required for</strong>: <em>CFB</em> mode.</li>
+<li><strong>counter</strong> (<cite>callable</cite>) –             A callable object returning bytes with the             length of one block. For security reasons the output of the counter             must never be the same twice.                         <strong>Required for</strong>: <em>CTR</em> mode.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Additional keyword arguments are passed to the underlying block cipher.</p>
+<dl class="method">
+<dt id="pep272_encryption.PEP272Cipher.decrypt">
+<code class="descname">decrypt</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.PEP272Cipher.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt data with the key and the parameters set at initialization.</p>
+<p>The cipher object is stateful; decryption of a long block
+of data can be broken up in two or more calls to <cite>decrypt()</cite>.
+That is, the statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is always equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That also means that you cannot reuse an object for encrypting
+or decrypting other data with the same key.</p>
+<p>This function does not perform any padding.</p>
+<blockquote>
+<div><ul class="simple">
+<li>For <cite>MODE_ECB</cite>, <cite>MODE_CBC</cite> <em>string</em> length
+(in bytes) must be a multiple of <em>block_size</em>.</li>
+<li>For <cite>MODE_CFB</cite>, <em>string</em> length (in bytes) must be a multiple
+of <em>segment_size</em>/8.</li>
+<li>For <cite>MODE_CTR</cite> and <cite>MODE_OFB</cite>, <em>string</em> can be of any length.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The piece of data to decrypt.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When a mode of operation has be requested this code cannot handle.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When len(string) has a wrong length, as described above.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – When the counter callable in CTR returns data with the wrong length.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The decrypted data, as a byte string. It is as long as
+<em>string</em>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pep272_encryption.PEP272Cipher.decrypt_block">
+<code class="descname">decrypt_block</code><span class="sig-paren">(</span><em>key</em>, <em>block</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.PEP272Cipher.decrypt_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy function for the decryption of a single block.
+Overwrite with ‘real’ deryption function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The symmetric encryption key.</li>
+<li><strong>block</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – A single ciphertext block to encrypt.</li>
+<li><strong>**kwargs</strong> – Additional parameters passed to <cite>__init__</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.6)"><strong>NotImplementedError</strong></a> – This method is to be overridden.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">plaintext block</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pep272_encryption.PEP272Cipher.encrypt">
+<code class="descname">encrypt</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.PEP272Cipher.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt data with the key and the parameters set at initialization.</p>
+<p>The cipher object is stateful; encryption of a long block
+of data can be broken up in two or more calls to <cite>encrypt()</cite>.
+That is, the statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is always equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That also means that you cannot reuse an object for encrypting
+or decrypting other data with the same key.</p>
+<p>This function does not perform any padding.</p>
+<blockquote>
+<div><ul class="simple">
+<li>For <cite>MODE_ECB</cite>, <cite>MODE_CBC</cite> <em>string</em> length
+(in bytes) must be a multiple of <em>block_size</em>.</li>
+<li>For <cite>MODE_CFB</cite>, <em>string</em> length (in bytes) must be a multiple
+of <em>segment_size</em>/8.</li>
+<li>For <cite>MODE_CTR</cite> and <cite>MODE_OFB</cite>, <em>string</em> can be of any length.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The piece of data to encrypt.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When a mode of operation has be requested this code cannot handle.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When len(string) has a wrong length, as described above.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – When the counter callable in CTR returns data with the wrong length.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The encrypted data, as a byte string. It is as long as
+<em>string</em>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pep272_encryption.PEP272Cipher.encrypt_block">
+<code class="descname">encrypt_block</code><span class="sig-paren">(</span><em>key</em>, <em>block</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.PEP272Cipher.encrypt_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy function for the encryption of a single block.
+Overwrite with ‘real’ encryption function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The symmetric encryption key.</li>
+<li><strong>block</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – A single plaintext block to encrypt.</li>
+<li><strong>**kwargs</strong> – Additional parameters passed to <cite>__init__</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.6)"><strong>NotImplementedError</strong></a> – This method is to be overridden.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">ciphertext block</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="block-cipher-mode-of-operation">
+<span id="api-modes"></span><h2>Block cipher mode of operation<a class="headerlink" href="#block-cipher-mode-of-operation" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For mote details about different modes of operation,
+see Discussions/<a class="reference internal" href="discussion.html#discussion-modes"><span class="std std-ref">Block cipher mode of operation</span></a>.</p>
+</div>
+<p>Block ciphers can be used in different modes of operation.
+The mode of operation can be set by passing one of the constants
+to the cipher object. Different modes of operation may require to pass extra
+arguments to the constructor.</p>
+<p>Below is an example from the mostly <a class="reference external" href="https://www.python.org/dev/peps/pep-0272/">PEP-272</a> compliant  <a class="reference external" href="https://www.pycryptodome.org/">PyCryptodome</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="k">import</span> <span class="n">AES</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iv</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;random 16 bytes!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">key</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;0123456789abcdef&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">IV</span><span class="o">=</span><span class="n">iv</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">16</span><span class="p">)</span>
+<span class="go">b&#39;j\xa2\xb5\x80\xf7\xbd\xb4I\xda\xea\x9aN\x9d\xb5\x9a\x17&#39;</span>
+</pre></div>
+</div>
+<p>This library supports following modes of operation:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Electronic code book (ECB)</li>
+<li>Cipher Block Chaining (CBC)</li>
+<li>Cipher Feedback (CFB)</li>
+<li>Output Feedback (OFB)</li>
+<li>Counter (CTR)</li>
+</ul>
+</div></blockquote>
+<p>Not supported is, but may be implemented in the future:</p>
+<blockquote>
+<div><ul class="simple">
+<li>PGP variant of CFB (PGP)</li>
+</ul>
+</div></blockquote>
+<p>Planned modes are (extending to <a class="reference external" href="https://www.python.org/dev/peps/pep-0272/">PEP-272</a>):</p>
+<blockquote>
+<div><ul class="simple">
+<li>Propagating Cipher Block Chaining (PCBC), used in older Kerberos versions</li>
+<li>Infinite Garble Extension (IGE), used by Telegram.</li>
+<li>OpenPGP mode, compatible to <a class="reference external" href="https://www.dlitz.net/software/pycrypto/">PyCrypto</a> or <a class="reference external" href="https://www.pycryptodome.org/">PyCryptodome</a>.</li>
+</ul>
+</div></blockquote>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Authenticated_encryption">Authenticated encryption (AE) or authenticated encryption with associated data
+(AEAD)</a> will probably not be supported, as they would require additional
+methods to finalize the encryption and sometimes have special requirements.</p>
+<div class="section" id="electronic-code-book-mode-ecb">
+<h3>Electronic Code Book Mode (ECB)<a class="headerlink" href="#electronic-code-book-mode-ecb" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="pep272_encryption.MODE_ECB">
+<code class="descclassname">pep272_encryption.</code><code class="descname">MODE_ECB</code><em class="property"> = 1</em><a class="headerlink" href="#pep272_encryption.MODE_ECB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The ECB mode is not <a class="reference external" href="https://en.wikipedia.org/wiki/Semantic_security">semantically secure</a>.</p>
+</div>
+<p>The ECB mode of operation is the simplest one - each plaintext block is
+independently encrypted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param test:</th><td class="field-body">bla</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cipher-block-chaining-mode-cbc">
+<h3>Cipher Block Chaining Mode (CBC)<a class="headerlink" href="#cipher-block-chaining-mode-cbc" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="pep272_encryption.MODE_CBC">
+<code class="descclassname">pep272_encryption.</code><code class="descname">MODE_CBC</code><em class="property"> = 2</em><a class="headerlink" href="#pep272_encryption.MODE_CBC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>To solve the problems of the ECB mode, a plaintext block is <a class="reference external" href="https://en.wikipedia.org/wiki/Exclusive_or">xored</a> to the
+previous ciphertext block. For the very “first” ciphertext an
+<strong>initialization vector (IV)</strong> is used.</p>
+<p>Plain- / ciphertexts must be multiple of blocksize in length.</p>
+</div>
+<div class="section" id="cipher-feedback-mode-cfb">
+<h3>Cipher Feedback Mode (CFB)<a class="headerlink" href="#cipher-feedback-mode-cfb" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="pep272_encryption.MODE_CFB">
+<code class="descclassname">pep272_encryption.</code><code class="descname">MODE_CFB</code><em class="property"> = 3</em><a class="headerlink" href="#pep272_encryption.MODE_CFB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The CFB mode of operation makes a stream cipher out of the block cipher. The
+block size of the cipher is reduced to <code class="docutils literal notranslate"><span class="pre">segment_size</span></code>.</p>
+<p>Plain- and ciphertext must be a multiple of <code class="docutils literal notranslate"><span class="pre">segment_size</span></code> in length.</p>
+</div>
+<div class="section" id="output-feedback-ofb">
+<h3>Output Feedback (OFB)<a class="headerlink" href="#output-feedback-ofb" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="pep272_encryption.MODE_OFB">
+<code class="descclassname">pep272_encryption.</code><code class="descname">MODE_OFB</code><em class="property"> = 5</em><a class="headerlink" href="#pep272_encryption.MODE_OFB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>OFB uses a CBC encryption of a stream of null bytes to create a keystream.</p>
+</div>
+<div class="section" id="counter-mode-of-operation">
+<h3>Counter mode of operation<a class="headerlink" href="#counter-mode-of-operation" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="pep272_encryption.MODE_CTR">
+<code class="descclassname">pep272_encryption.</code><code class="descname">MODE_CTR</code><em class="property"> = 6</em><a class="headerlink" href="#pep272_encryption.MODE_CTR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>CTR encrypts a counter to create a keystream.</p>
+</div>
+</div>
+<div class="section" id="module-pep272_encryption.util">
+<span id="utility-functions"></span><h2>Utility functions<a class="headerlink" href="#module-pep272_encryption.util" title="Permalink to this headline">¶</a></h2>
+<p>Utility library for compatability with Python 2 and 3.</p>
+<p>This includes versions of <code class="docutils literal notranslate"><span class="pre">chr</span></code> and <code class="docutils literal notranslate"><span class="pre">ord</span></code>-methods to work with bytes
+with Python 3 and strings with Python 2.</p>
+<dl class="function">
+<dt id="pep272_encryption.util.b_chr">
+<code class="descclassname">pep272_encryption.util.</code><code class="descname">b_chr</code><span class="sig-paren">(</span><em>ordinal</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.util.b_chr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a byte string of one character with 0 &lt;= ordinal &lt;= 255.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ordinal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – The Unicode code point of a single char</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The byte string representation of the ordinal</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pep272_encryption.util.b_ord">
+<code class="descclassname">pep272_encryption.util.</code><code class="descname">b_ord</code><span class="sig-paren">(</span><em>byte</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.util.b_ord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Unicode code point for a byte or iteration product of a byte string alike object (e.g. bytearray).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>byte</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – The single byte or iteration product of a byte string to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Unicode code point</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pep272_encryption.util.xor_strings">
+<code class="descclassname">pep272_encryption.util.</code><code class="descname">xor_strings</code><span class="sig-paren">(</span><em>one</em>, <em>two</em><span class="sig-paren">)</span><a class="headerlink" href="#pep272_encryption.util.xor_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>xor two bytestrings together.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>one</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – First string</li>
+<li><strong>two</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – Second string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The xored strings</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pep272_encryption.version">
+<span id="version-information-and-metadata"></span><h2>Version information and metadata<a class="headerlink" href="#module-pep272_encryption.version" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>pep272_encryption.version</cite> contains metadata information,
+read by setup.py while installation.</p>
+<p>Following are defined: 
+<code class="docutils literal notranslate"><span class="pre">__version__</span></code>, <code class="docutils literal notranslate"><span class="pre">__author__</span></code>, <code class="docutils literal notranslate"><span class="pre">__email__</span></code>, <code class="docutils literal notranslate"><span class="pre">__license__</span></code>,
+<code class="docutils literal notranslate"><span class="pre">__url__</span></code>.</p>
+<dl class="data">
+<dt id="pep272_encryption.version.__version__">
+<code class="descclassname">pep272_encryption.version.</code><code class="descname">__version__</code><em class="property"> = '0.1'</em><a class="headerlink" href="#pep272_encryption.version.__version__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version number.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pep272_encryption.version.__author__">
+<code class="descclassname">pep272_encryption.version.</code><code class="descname">__author__</code><em class="property"> = 'Simon Biewald'</em><a class="headerlink" href="#pep272_encryption.version.__author__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of author(s).</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pep272_encryption.version.__email__">
+<code class="descclassname">pep272_encryption.version.</code><code class="descname">__email__</code><em class="property"> = 'simon.biewald&#64;hotmail.de'</em><a class="headerlink" href="#pep272_encryption.version.__email__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Email adress of main author or maintainer.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pep272_encryption.version.__license__">
+<code class="descclassname">pep272_encryption.version.</code><code class="descname">__license__</code><em class="property"> = 'CC0'</em><a class="headerlink" href="#pep272_encryption.version.__license__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short name of the license.
+CC0 is a “safer” version to declare the software 
+public domain (e.g. do what you want to do with it).
+Full text of the <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">CC0 1.0 Universal</a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pep272_encryption.version.__url__">
+<code class="descclassname">pep272_encryption.version.</code><code class="descname">__url__</code><em class="property"> = 'https://github.com/Varbin/pep272-encryption/'</em><a class="headerlink" href="#pep272_encryption.version.__url__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Github URL of this project.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="discussion.html" class="btn btn-neutral float-right" title="Discussions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="howto.html" class="btn btn-neutral" title="How-To" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Simon Biewald.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

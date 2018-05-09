@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Discussions &mdash; pep272-encryption  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Acknowledgements and Sources" href="ack.html" />
+    <link rel="prev" title="Library reference" href="api.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pep272-encryption
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How-To</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Library reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Discussions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#block-cipher-mode-of-operation">Block cipher mode of operation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#electronic-code-book-mode-ecb">Electronic Code Book Mode (ECB)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#attacks-against-ecb-mode">Attacks against ECB mode</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cipher-block-chaining-mode-cbc">Cipher Block Chaining Mode (CBC)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#attacks-against-cbc-mode">Attacks against CBC mode</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cipher-feedback-mode-cfb">Cipher Feedback Mode (CFB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-feedback-ofb">Output Feedback (OFB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#counter-mode-of-operation">Counter mode of operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#speed">Speed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements and Sources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pep272-encryption</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Discussions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/discussion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="discussions">
+<span id="discussion"></span><h1>Discussions<a class="headerlink" href="#discussions" title="Permalink to this headline">¶</a></h1>
+<p>This section provides in-depth knowledge of topics important in the context
+of the library.</p>
+<div class="section" id="block-cipher-mode-of-operation">
+<span id="discussion-modes"></span><h2>Block cipher mode of operation<a class="headerlink" href="#block-cipher-mode-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>Block ciphers can be used in different modes of operation.
+The mode of operation can be set by passing one of the constants
+to the cipher object. Different modes of operation may require to pass extra
+arguments to the constructor.</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0272/">PEP-272</a> requires libraries to provide at least the most common modes:
+<code class="docutils literal notranslate"><span class="pre">ECB</span></code>, <code class="docutils literal notranslate"><span class="pre">CBC</span></code>, <code class="docutils literal notranslate"><span class="pre">CFB</span></code>, <code class="docutils literal notranslate"><span class="pre">OFB</span></code> and <code class="docutils literal notranslate"><span class="pre">CTR</span></code>, all of those are supported
+by this library.</p>
+<p>Each mode of operation is different and has different requirements.</p>
+<div class="section" id="electronic-code-book-mode-ecb">
+<h3>Electronic Code Book Mode (ECB)<a class="headerlink" href="#electronic-code-book-mode-ecb" title="Permalink to this headline">¶</a></h3>
+<p>The ECB mode of operation is the simplest one - each plaintext block is
+independently encrypted. The resulting problem is that the same plaintext
+leads to the same ciphertext, every time they occur. This means ECB mode
+is not <a class="reference external" href="https://en.wikipedia.org/wiki/Semantic_security">semantically secure</a>.</p>
+<p>Plain- / ciphertexts must be multiple of blocksize in length.</p>
+<p>The formulae for the ECB mode are:</p>
+<div class="math">
+<p><img src="_images/math/a79eefa2a03ee83035a826de95ab197970b3c5ff.png" alt="C_{i}=E_{K}(P_{i})
+
+P_{i}=D_{K}(C_{i})"/></p>
+</div><div class="figure align-center" id="id1">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/d/d6/ECB_encryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/d/d6/ECB_encryption.svg" /><p class="caption"><span class="caption-text">ECB encryption</span></p>
+</div>
+<div class="figure align-center" id="id2">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/e/e6/ECB_decryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/ECB_decryption.svg" /><p class="caption"><span class="caption-text">ECB decryption</span></p>
+</div>
+<div class="section" id="attacks-against-ecb-mode">
+<h4>Attacks against ECB mode<a class="headerlink" href="#attacks-against-ecb-mode" title="Permalink to this headline">¶</a></h4>
+<p>Because all plaintext blocks are encrypted independently, an encryption
+of the same block results in the same ciphertext block each time.</p>
+<p>This means by having multiple ciphertexts in can be concluded whether the
+correspondent plaintexts are the same or not.</p>
+<p>The multiple repetition of plaintext blocks may result in visible repetitions
+in the ciphertext, e.g. in images.</p>
+<div class="figure align-center" id="id3">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg" />
+<p class="caption"><span class="caption-text">Plain Tux image</span></p>
+</div>
+<div class="figure align-center" id="id4">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg" src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg" />
+<p class="caption"><span class="caption-text">Encrypted Tux image in ECB mode</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="cipher-block-chaining-mode-cbc">
+<h3>Cipher Block Chaining Mode (CBC)<a class="headerlink" href="#cipher-block-chaining-mode-cbc" title="Permalink to this headline">¶</a></h3>
+<p>To solve the problems of the ECB mode, a plaintext block is <a class="reference external" href="https://en.wikipedia.org/wiki/Exclusive_or">xored</a> to the
+previous ciphertext block. For the very “first” ciphertext an
+<strong>initialization vector (IV)</strong> is used. The IV can be considered public
+information.</p>
+<p>Plain- / ciphertexts must be multiple of blocksize in length.</p>
+<p>Having an incorrect block or IV will result in an incorrect decryption of
+the direct adjectant block, but the remaining blocks will remain intact.</p>
+<p>The formulae for en- and decryption are:</p>
+<div class="math">
+<p><img src="_images/math/5633cd2e1d6f5bba4211c3bcd33bbbde69d3abf5.png" alt="C_{i}=E_{K}(P_{i} \oplus C_{i-1})
+
+P_{i}=D_{K}(C_{i}) \oplus C_{i-1})
+
+C_0 = \mbox{IV}"/></p>
+</div><div class="figure align-center" id="id5">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/8/80/CBC_encryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/8/80/CBC_encryption.svg" /><p class="caption"><span class="caption-text">CBC encryption</span></p>
+</div>
+<div class="figure align-center" id="id6">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/2/2a/CBC_decryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/CBC_decryption.svg" /><p class="caption"><span class="caption-text">CBC decryption</span></p>
+</div>
+<div class="section" id="attacks-against-cbc-mode">
+<h4>Attacks against CBC mode<a class="headerlink" href="#attacks-against-cbc-mode" title="Permalink to this headline">¶</a></h4>
+<p>A one-bit change  to the ciphertext causes complete corruption of the
+corresponding block of plaintext, and the inversion of the corresponding bit
+in the next block while leaving the rest iof the blocks intact. This can lead
+to <a class="reference external" href="https://en.wikipedia.org/wiki/Padding_oracle_attack">padding oracle attacks</a> such as <a class="reference external" href="https://en.wikipedia.org/wiki/POODLE">POODLE</a> (it is the consequence solely
+of the choice of CBC mode but other design choices, too).</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Watermarking_attack">Watermarking attacks</a> are possible with predictable IVs.</p>
+</div>
+</div>
+<div class="section" id="cipher-feedback-mode-cfb">
+<h3>Cipher Feedback Mode (CFB)<a class="headerlink" href="#cipher-feedback-mode-cfb" title="Permalink to this headline">¶</a></h3>
+<p>The CFB mode of operation makes a stream cipher out of the block cipher. The
+block size of the cipher is reduced to <code class="docutils literal notranslate"><span class="pre">segment_size</span></code>.</p>
+<p>Plain- and ciphertext must be a multiple of <code class="docutils literal notranslate"><span class="pre">segment_size</span></code> in length.</p>
+<p>The formulae describing CFB mode are:</p>
+<div class="math">
+<p><img src="_images/math/8e958db161880490352bb18bd6785c5f2dc9e434.png" alt="C_{i}=E_{K}(C_{i-1})\oplus P_{i}
+
+P_{i}=E_{K}(C_{i-1})\oplus C_{i}
+
+C_{0}=\mbox{IV}"/></p>
+</div><div class="figure align-center" id="id7">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/9/9d/CFB_encryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/CFB_encryption.svg" /><p class="caption"><span class="caption-text">CFB encryption</span></p>
+</div>
+<div class="figure align-center" id="id8">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/5/57/CFB_decryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/5/57/CFB_decryption.svg" /><p class="caption"><span class="caption-text">CFB decryption</span></p>
+</div>
+</div>
+<div class="section" id="output-feedback-ofb">
+<h3>Output Feedback (OFB)<a class="headerlink" href="#output-feedback-ofb" title="Permalink to this headline">¶</a></h3>
+<p>OFB mode creates a stream cipher by <a class="reference external" href="https://en.wikipedia.org/wiki/Exclusive_or">xoring</a> the plain text with a keystream
+generated by encrypting a stream of null bytes in CBC mode. Encryption
+and decryption are the same, data of arbitrary length can be processed.</p>
+<p>The formulae describing OFB mode of operation are:</p>
+<div class="math">
+<p><img src="_images/math/5f9bd478403f1bdbb9ab2636c5e5faa05578453d.png" alt="C_{i} = P_{i} \oplus O_{i}
+
+P_{i} = C_{i} \oplus O_{i}
+
+
+O_{i} = E_{K} (0_{i-1} \oplus 0 \ldots )
+
+O_{0}=\mbox{IV}"/></p>
+</div><div class="figure align-center" id="id9">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/b/b0/OFB_encryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/OFB_encryption.svg" /><p class="caption"><span class="caption-text">OFB encryption</span></p>
+</div>
+<div class="figure align-center" id="id10">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/f/f5/OFB_decryption.svg" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/OFB_decryption.svg" /><p class="caption"><span class="caption-text">OFB decryption</span></p>
+</div>
+</div>
+<div class="section" id="counter-mode-of-operation">
+<h3>Counter mode of operation<a class="headerlink" href="#counter-mode-of-operation" title="Permalink to this headline">¶</a></h3>
+<p>CTR mode creates a stream cipher by <a class="reference external" href="https://en.wikipedia.org/wiki/Exclusive_or">xoring</a> the plain text with a keystream
+generated by encrypting counter. Encryption
+and decryption are the same, data of arbitrary length can be processed.</p>
+<p>CTR can be described with those formulae:</p>
+<div class="math">
+<p><img src="_images/math/8a438592375e5da43bff397fd61cbcc9868c1404.png" alt="C_{i} = P_{i} \oplus O_{i}
+
+P_{i} = C_{i} \oplus O_{i}"/></p>
+</div><p>where <img class="math" src="_images/math/28dca46e16f45d95fba2e7ea333baf6371c09733.png" alt="O_{i}"/> are the return values of the counter.</p>
+<div class="figure align-center" id="id11">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/4/4d/CTR_encryption_2.svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/CTR_encryption_2.svg" /><p class="caption"><span class="caption-text">CTR encryption</span></p>
+</div>
+<div class="figure align-center" id="id12">
+<img alt="https://upload.wikimedia.org/wikipedia/commons/3/3c/CTR_decryption_2.svg" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/CTR_decryption_2.svg" /><p class="caption"><span class="caption-text">CTR decryption</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="speed">
+<h2>Speed<a class="headerlink" href="#speed" title="Permalink to this headline">¶</a></h2>
+<p>As most of this library is written in pure python the speed is not that great,
+compared to libraries written in C or similar, the slow speed may allow timing
+attacks.</p>
+<p>Benchmarks showed this library’s speed 0.02 - 0.045 of PyCrypto’s, where cipher
+logic is written in C.</p>
+<p>On the upside, this makes usage easier: Subclassing is made drastically easier.
+An optimized Xor function will automatically be used if a C compiler available.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ack.html" class="btn btn-neutral float-right" title="Acknowledgements and Sources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api.html" class="btn btn-neutral" title="Library reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Simon Biewald.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
