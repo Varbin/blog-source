@@ -22,7 +22,7 @@ subject: Python, Sicherheit
 
 ## Sicherheit - Analyse
 
- - [Analyse: Lenovo-Cryptominer](/sicherheit/analyse/lenovo "Analyse: Lenove Cryptominer") (9. Mai 2018)
+ - [Analyse: Lenovo-Cryptominer](/sicherheit/analyse/lenovo "Analyse: Lenovo Cryptominer") (9. Mai 2018)
 
 ## Sicherheit - Diverses
 
