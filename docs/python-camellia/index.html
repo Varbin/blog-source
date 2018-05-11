@@ -1,0 +1,368 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>python-camellia 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-python-camellia-s-documentation">
+<h1>Welcome to python-camellia’s documentation!<a class="headerlink" href="#welcome-to-python-camellia-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the documentation of python-camellia,
+a cryptographic library implementing the
+<a class="reference external" href="https://tools.ietf.org/html/rfc3713">Camellia</a> cipher in python.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">camellia</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plain</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;This is a text. &quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span> <span class="o">=</span> <span class="n">camellia</span><span class="o">.</span><span class="n">CamelliaCipher</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;16 byte long key&#39;</span><span class="p">,</span> <span class="n">IV</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;16 byte iv. xxxx&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">camellia</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encrypted</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c2</span> <span class="o">=</span> <span class="n">camellia</span><span class="o">.</span><span class="n">CamelliaCipher</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;16 byte long key&#39;</span><span class="p">,</span> <span class="n">IV</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;16 byte iv. xxxx&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">camellia</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c2</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span>
+<span class="go">b&#39;This is a text. &#39;</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-install"></span><div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install with <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">pip</a>:</p>
+<div class="code shell highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install python-camellia
+</pre></div>
+</div>
+</div>
+<span id="document-api"></span><div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-new-constructor">
+<h3>The <em>new</em> constructor<a class="headerlink" href="#the-new-constructor" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="camellia.new">
+<code class="descclassname">camellia.</code><code class="descname">new</code><span class="sig-paren">(</span><em>key</em>, <em>mode</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an “CamelliaCipher” object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<em>bytestring</em>) – The key for encrytion/decryption. Must be 16/24/32 in length.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>one of MODE_* constants</em>) – Mode of operation.</li>
+<li><strong>IV</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – Initialization vector for CBC/CFB/OFB blockcipher modes of
+operation, must be 16 bytes in length.</li>
+<li><strong>counter</strong> (<em>callable</em>) – Counter for CTR blockcipher mode of operation.
+Each call must return 16 bytes.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">CamelliaCipher</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError, NotImplementedError</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="modes-of-operation">
+<h3>Modes of operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="camellia.MODE_ECB">
+<code class="descclassname">camellia.</code><code class="descname">MODE_ECB</code><em class="property"> = 1</em><a class="headerlink" href="#camellia.MODE_ECB" title="Permalink to this definition">¶</a></dt>
+<dd><p>ECB mode of operation</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="camellia.MODE_CBC">
+<code class="descclassname">camellia.</code><code class="descname">MODE_CBC</code><em class="property"> = 2</em><a class="headerlink" href="#camellia.MODE_CBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>CBC mode of operation</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="camellia.MODE_CFB">
+<code class="descclassname">camellia.</code><code class="descname">MODE_CFB</code><em class="property"> = 3</em><a class="headerlink" href="#camellia.MODE_CFB" title="Permalink to this definition">¶</a></dt>
+<dd><p>CFB mode of operation</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="camellia.MODE_OFB">
+<code class="descclassname">camellia.</code><code class="descname">MODE_OFB</code><em class="property"> = 5</em><a class="headerlink" href="#camellia.MODE_OFB" title="Permalink to this definition">¶</a></dt>
+<dd><p>OFB mode of operation</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="camellia.MODE_CTR">
+<code class="descclassname">camellia.</code><code class="descname">MODE_CTR</code><em class="property"> = 6</em><a class="headerlink" href="#camellia.MODE_CTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>CTR mode of operation</p>
+</dd></dl>
+
+</div>
+<div class="section" id="the-camelliacipher-class">
+<h3>The <em>CamelliaCipher</em> class<a class="headerlink" href="#the-camelliacipher-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="camellia.CamelliaCipher">
+<em class="property">class </em><code class="descclassname">camellia.</code><code class="descname">CamelliaCipher</code><span class="sig-paren">(</span><em>key</em>, <em>mode</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.CamelliaCipher" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CamelliaCipher object.</p>
+<dl class="method">
+<dt id="camellia.CamelliaCipher.encrypt">
+<code class="descname">encrypt</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.CamelliaCipher.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt data with the key and the parameters set at initialization.</p>
+<p>The cipher object is stateful; encryption of a long block
+of data can be broken up in two or more calls to <cite>encrypt()</cite>.
+That is, the statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is always equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That also means that you cannot reuse an object for encrypting
+or decrypting other data with the same key.</p>
+<p>This function does not perform any padding.</p>
+<blockquote>
+<div><ul class="simple">
+<li>For <cite>MODE_ECB</cite>, <cite>MODE_CBC</cite> <em>string</em> length
+(in bytes) must be a multiple of <em>block_size</em>.</li>
+<li>For <cite>MODE_CFB</cite>, <em>string</em> length (in bytes) must be a multiple
+of <em>segment_size</em>/8.</li>
+<li>For <cite>MODE_CTR</cite> and <cite>MODE_OFB</cite>, <em>string</em> can be of any length.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The piece of data to encrypt.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When a mode of operation has be requested this code cannot handle.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When len(string) has a wrong length, as described above.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – When the counter callable in CTR returns data with the wrong length.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The encrypted data, as a byte string. It is as long as
+<em>string</em>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="camellia.CamelliaCipher.decrypt">
+<code class="descname">decrypt</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.CamelliaCipher.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt data with the key and the parameters set at initialization.</p>
+<p>The cipher object is stateful; decryption of a long block
+of data can be broken up in two or more calls to <cite>decrypt()</cite>.
+That is, the statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is always equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That also means that you cannot reuse an object for encrypting
+or decrypting other data with the same key.</p>
+<p>This function does not perform any padding.</p>
+<blockquote>
+<div><ul class="simple">
+<li>For <cite>MODE_ECB</cite>, <cite>MODE_CBC</cite> <em>string</em> length
+(in bytes) must be a multiple of <em>block_size</em>.</li>
+<li>For <cite>MODE_CFB</cite>, <em>string</em> length (in bytes) must be a multiple
+of <em>segment_size</em>/8.</li>
+<li>For <cite>MODE_CTR</cite> and <cite>MODE_OFB</cite>, <em>string</em> can be of any length.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – The piece of data to decrypt.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When a mode of operation has be requested this code cannot handle.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – When len(string) has a wrong length, as described above.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – When the counter callable in CTR returns data with the wrong length.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The decrypted data, as a byte string. It is as long as
+<em>string</em>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)">bytes</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="camellia.CamelliaCipher.block_size">
+<code class="descname">block_size</code><em class="property"> = 16</em><a class="headerlink" href="#camellia.CamelliaCipher.block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>block size of the camellia cipher</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="camellia.CamelliaCipher.decrypt_block">
+<code class="descname">decrypt_block</code><span class="sig-paren">(</span><em>key</em>, <em>block</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.CamelliaCipher.decrypt_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt a single block with camellia.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="camellia.CamelliaCipher.encrypt_block">
+<code class="descname">encrypt_block</code><span class="sig-paren">(</span><em>key</em>, <em>block</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.CamelliaCipher.encrypt_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt a single block with camellia.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="low-level-camellia-functions">
+<h3>Low-level camellia functions<a class="headerlink" href="#low-level-camellia-functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="camellia.Camellia_Ekeygen">
+<code class="descclassname">camellia.</code><code class="descname">Camellia_Ekeygen</code><span class="sig-paren">(</span><em>rawKey</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.Camellia_Ekeygen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a keytable from a key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rawKey</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – raw encryption key, 128, 192 or 256 bits long</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">keytable</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="camellia.Camellia_Encrypt">
+<code class="descclassname">camellia.</code><code class="descname">Camellia_Encrypt</code><span class="sig-paren">(</span><em>keyLength</em>, <em>keytable</em>, <em>plainText</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.Camellia_Encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt a plaintext block by given arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyLength</strong> – key length (128, 192 or 256 bits)</li>
+<li><strong>keytable</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – keytable returned by Camellia_Ekeygen</li>
+<li><strong>plainText</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – one plaintext block to encrypt (16 bytes in length)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ciphertext block</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="camellia.Camellia_Decrypt">
+<code class="descclassname">camellia.</code><code class="descname">Camellia_Decrypt</code><span class="sig-paren">(</span><em>keyLength</em>, <em>keytable</em>, <em>cipherText</em><span class="sig-paren">)</span><a class="headerlink" href="#camellia.Camellia_Decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt a plaintext block by given arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keyLength</strong> – key length (128, 192 or 256 bits)</li>
+<li><strong>keytable</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – keytable returned by Camellia_Ekeygen</li>
+<li><strong>cipherText</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.6)"><em>bytes</em></a>) – one cipher block to decrypt (16 bytes in length)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">plaintext block</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<span id="document-license"></span><div class="section" id="licenses">
+<h2>Licenses<a class="headerlink" href="#licenses" title="Permalink to this headline">¶</a></h2>
+<p>python-camellia is dual licensed:</p>
+<ul class="simple">
+<li>The Python code is MIT licensed,</li>
+<li>the C code is 2-Clause-BSD licensed.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-install">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-api">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-new-constructor">The <em>new</em> constructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#modes-of-operation">Modes of operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-camelliacipher-class">The <em>CamelliaCipher</em> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#low-level-camellia-functions">Low-level camellia functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-license">Licenses</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html#document-index">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simon Biewald.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
