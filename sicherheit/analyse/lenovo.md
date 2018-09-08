@@ -17,7 +17,7 @@ image: lenovo.png
 Vor einigen Tagen kam es in die Schlagzeilen: Durch ausgelassene Updates des Drupal-Shopsystems [fing sich die Lenovo-Webseite, und andere, einen Cryptominer ein][0].
 Wie funktioniert der eingeschleuste Trojaner?
 
-Der Trojaner läd in mehreren Stufen Skripte nach.
+Der Trojaner lädt in mehreren Stufen Skripte nach.
 
 ## Stufe 1
 
@@ -41,7 +41,7 @@ Dabei wird zu dem `head`-Element der Webseite ein `script`-Element hinzugefügt,
 welches von der URL `http://vuuwd.com/t.js` weiteres JavaScript nachlädt.
 
 Das nachgeladene JavaScript ist zwar nun offline, 
-konnte aber mit Hilfe [der WaybackMachine][2] nachgeschlagen werden.
+kann aber mit Hilfe [der WaybackMachine nachgeschlagen werden][2] .
 
 ## Stufe 2
 
@@ -80,10 +80,10 @@ Zuerst wird die Funktion `loadScript` definiert, mit weiteres JavaScript mit
 der oben genannte Methode nachgeladen wird, zusätzlich wird dazu ein Callback
 ausgeführt, wenn die Resource geladen wurde.
 
-Im Weiteren wird ein Cryptominer von [Coinhive][3] nachgeladen und eingerichtet.
+Im Weiteren wird ein Miningscript von [Coinhive][3] nachgeladen und eingerichtet.
 Interessanterweise wird die maximal zu benutzende Rechenleistung auf 20%
-eingestellt. Zusätzlich dazu werden die zuvor erstellen `script`-Elemente
-aus dem DOM entfernt.
+eingestellt, vermutlich um nicht entdeckt zu werden.
+Anschließent werden die zuvor erstellen `script`-Elemente aus dem DOM entfernt.
 
 ## Fazit
 
@@ -94,5 +94,5 @@ würden auch Besucher der infizierten Webseite keinen Verdacht schöpfen.
 
  [0]: https://heise.de/-4044683
  [1]: https://github.com/RobLoach/jquery-once
- [2]: https://https://web.archive.org/web/20180506052843/http://vuuwd.com/t.js
+ [2]: https://web.archive.org/web/20180506052843/http://vuuwd.com/t.js
  [3]: https://coinhive.com

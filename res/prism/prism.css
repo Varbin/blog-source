@@ -1,5 +1,5 @@
-/* PrismJS 1.10.0
-http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+clike+javascript+c+bash+batch+cpp+django+diff+powershell+python&plugins=line-numbers+command-line */
+/* PrismJS 1.15.0
+https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+c+bash+batch+cpp+diff+django+markup-templating+http+php+sql+powershell+python&plugins=line-numbers+command-line */
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -39,7 +39,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #222;
+	background: #272822;
 }
 
 /* Inline code */
@@ -97,7 +97,8 @@ pre[class*="language-"] {
 
 .token.atrule,
 .token.attr-value,
-.token.function {
+.token.function,
+.token.class-name {
 	color: #e6db74;
 }
 
@@ -122,15 +123,15 @@ pre[class*="language-"] {
 	cursor: help;
 }
 
-pre.line-numbers {
+pre[class*="language-"].line-numbers {
 	position: relative;
 	padding-left: 3.8em;
 	counter-reset: linenumber;
 }
 
-pre.line-numbers > code {
+pre[class*="language-"].line-numbers > code {
 	position: relative;
-    white-space: inherit;
+	white-space: inherit;
 }
 
 .line-numbers .line-numbers-rows {
@@ -163,6 +164,7 @@ pre.line-numbers > code {
 			padding-right: 0.8em;
 			text-align: right;
 		}
+
 .command-line-prompt {
 	border-right: 1px solid #999;
 	display: block;

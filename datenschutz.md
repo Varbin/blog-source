@@ -24,9 +24,10 @@ Daten werden zur **Erbringung des Dienstes** und **anonymen** statistischen Ausw
  - gekürzte IP-Adresse
  - Uhrzeit Ihres Besuchs
  - die besuchte Seite
- - ggf. die zuvor besuchte Seite
+ - ggf. die zuvor besuchte Seite ("Referer")
+ - ggf. das von Ihnen verwendete Betriebssystem und Webbrowser ("User-Agent")
  
-Diese Daten können nicht Personen zugeordnet werden. Diese Daten werden **nicht** für Werbezwecke genutzt oder
+Diese Daten können nicht Personen zugeordnet werden (sie sind nicht "personenbezogen"). Diese Daten werden **nicht** für Werbezwecke genutzt oder
 weitergegeben.
 
 ### Und das heißt...?
@@ -45,7 +46,7 @@ Damit lässt sich die IP-Adresse nicht mehr einer einzelnen Person zuweisen.
 Mit Hilfe der IP-Adresse lässt sich die ungefähre Besucherzahl abschätzen und es kann ungefähr 
 zugeordnet werden, aus welchem Land Sie diese Seite aufrufen.
 
-#### ggf. die zuvor besuchte Seite
+#### ggf. die zuvor besuchte Seite ("Referer")
 
 Ihr Webbrowser sendet teilweise die Information mit, über welche Webseite Sie auf eine andere Webseite 
 gekommen sind - dieses ist der sogenannte "Referer" (<abbr title="schreibt sich wirklich so">sic!</abbr>). 
@@ -56,6 +57,14 @@ Mit Hilfe dieser Daten kann ich beispielsweise evaluieren, wie meine Seite benut
 Seiten auf diese Seite verweisen.
 
 Die Übetragung dieser Daten kann in den Einstellungen des benutzten Webbrowsers meist abgestellt werden.
+
+#### ggf. das von Ihnen verwendete Betriebssystem und Webbrowser ("User-Agent")
+
+Ihr Webbrowser sendet Informationen über sich und das Betriebssystem mit (der sogenannte "User-Agent"). 
+
+So kann ich zum Beispiel feststelle, für welchen Webbrowser ich meine Webseite optimieren sollte.
+
+Der gesendete "User-Agent" kann übrigens auch geändert werden.
 
 ### Beispiel
 
@@ -68,6 +77,15 @@ Die von einem Webseitenaufruf gesammelten Informationen sehen dann beispielsweis
 Daraus ablesbar ist: Die IP-Adresse des Besuchers fing mit `93.236` an, 
 fragte am `16. Februar 2018 um 16:51` die Webseite `/sicherheit/mnspro` mit einem modernen Webbrowser 
 (`HTTP/2.0`) an. Die Seite wurde direkt aufgerufen oder es wurde kein "Referer" gesendet (`"-"`).
+
+### An wen werden Daten weitergegeben?
+
+Zur statistischen Auswertung wird der "User-Agent" im Rahmen von Telemetrie meiner Software
+an das Caddy-Project übertragen.
+
+Auch dabei kann kein Personenbezug hergestellt werden.
+
+Zu der Telemetrie, siehe auch [der Dokumentation des Webservs Caddy](https://caddyserver.com/docs/telemetry).
 
 ## Sollte etwas unklar sein...
 

@@ -15,8 +15,6 @@ wenn möglich, durch [OpenNTPD][2] zu ersetzen.
 
 OpenNTPD gehört zum OpenBSD-Projekt und soll folgende Ziele erfüllen:
 
-OpenNTPD soll folgende Ziele erfüllen:
-
  - Sicherheit
  - Einfachheit in der Bedienung
  - Performance
@@ -131,15 +129,20 @@ werden. Der Plural bedeutet auch hier wieder einen Pool an Servern.
 
 
 
-## Aktivierung von OpenNTPD
+## Aktivierung und Starten von OpenNTPD
 
-Unter Debian/Ubuntu sollte OpenNTPD automatisch aktiviert werden. Unter FreeBSD muss nocht die `/etc/rc.conf` 
-geändert werden:
+Unter Debian/Ubuntu sollte OpenNTPD automatisch aktiviert und gestartet werden werden. 
 
-<pre class="language-config line-numbers" data-start="15">
-<code># ntpd deaktivieren
-ntpd_enable="NO"
-# OpenNTPD aktivieren
-openntpd_enable="YES"
-# Zeit bei Start synchronisieren
-openntpd_flags="-s"</code></pre>
+Unter FreeBSD muss noch die `/etc/rc.conf` geändert werden und anschließend OpenNTPD gestartet werden:
+
+<pre class="command-line language-bash" data-user="root" data-host="freebsd" data-output="2,4,6,8-10">
+<code>sysrc ntpd_enable="NO"
+ntpd_enable: YES -> NO
+sysrc openntpd_enable="YES"
+openntpd_enable: NO -> YES
+sysrc openntpd_flags="-s"
+openntpd_flags: -> -s
+service openntpd start
+Performing sanity check on openntpd configuration:
+configuration OK
+Starting openntpd.</code></pre>

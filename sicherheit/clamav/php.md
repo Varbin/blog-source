@@ -12,14 +12,16 @@ Die Erkennungsrate von ClamAV bie PHP-Backdoors kann zusätzlich mit Datenbanken
 
 Die händisch erstellte Signaturdatenbank enthält Signaturen für folgende Schadprogramme:
 
- - PHP-Backdoors: Azrail, CasuS, Cybershell, KAdot, Lolipop, lostpassworddc, Spammailer, MyShell, NShell, s72, Ant(Sword), b374k
+ - PHP-Backdoors (Auszüge): Azrail, CasuS, Cybershell, KAdot, Lolipop, lostpassworddc, Spammailer, MyShell, NShell, s72, Ant(Sword), b374k
  - Exploits: Umgehungsversuche des PHP-Safemodes
  - Weitere Backdoors: Gamma Webshell (Perl) sowie eine CGI-Backdoor in Python
  
 Außerdem ist eine einfache Heuristik zur Erkennung von PHP-Backdoors mit dabei, 
 die erkennt ob `$_`-Variablen (`$_GET`, `$_POST`, `$_REQUEST`) als Argument für 
 `eval` / `system` / `passthru` / `exec` / `popen` / `proc_open` verwendet werden.
-Eine Extra Datei für häufig verwendete Verschleierungstaktiken ist ebenfalls vorhanden.
+
+Eine zusätzliche Datei für häufig verwendete Verschleierungstaktiken kann ebenfalls heruntegeladen
+werden. Diese erhöht jedoch möglicherweise die Rate der falsch-positiven Ergebnisse.
 
 ## Download
 
