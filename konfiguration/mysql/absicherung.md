@@ -29,7 +29,7 @@ Mal eben "kurz" MySQL installieren, doch ist das alles so sicher? Eigentlich gan
  2. [Deaktivierung des Fernzugriffs](#2)
     1. [Deaktivierung des Fernzugriffs auf den Datenbank-`root`-Nutzer](#2.1)
  3. [Verbindung zur Datenbank verschlüsseln](#3)
- 2. [`mysql_secure_installation`](#2)
+ 2. [`mysql_secure_installation`](#4)
 
 <a id="1"></a>
 # 1. Zugriffsrechte des Datenbankordners
