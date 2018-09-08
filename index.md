@@ -48,7 +48,7 @@ subject: Python, Sicherheit
  - [OpenNTPD][40] (18. Oktober 2016)
  - [IP-Adressen in Webserverlogs datenschutzgemäß anonymisieren][41] (4. Februar 2018)
  - [Hurricane Electric 6in4-Tunnel unter FreeBSD einrichten][42] (28. März 2018)
- - MySQL unter FreeBSD:
+ - MySQL unter FreeBSD (8. September 2018):
     - [Installation][43]
     - [Fehlersuche][44]
     - [Grundlagen Absicherung][45]

@@ -65,12 +65,12 @@ mysqld: Error on delete of './auto.cnf' (Errcode: 2 - No such file or directory)
 
 Zu beachten: Hierbei wird eine neues Passwort für das Datenbankkonto "root" vergeben.
 
-Anschließend sollte überprüft werden ob der MySQL nun started.
+Anschließend sollte überprüft werden ob der MySQL-Server nun started.
 
 <a id="1.2"></a>
 ### 1.2 Berechtigungen
 
-Es ist zu prüfen, ob der MySQL-Nutzer überhaupt Zugriff auf das Datenbankverzeichnis hat:
+Es ist zu prüfen, ob der `mysql`-Nutzer überhaupt Zugriff auf das Datenbankverzeichnis hat:
 
 <pre class="command-line language-bash" data-user="root" data-host="freebsd" data-output="2-27">
 <code class="language-bash">ls -la /var/db/mysql

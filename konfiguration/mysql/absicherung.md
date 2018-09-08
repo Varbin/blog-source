@@ -25,9 +25,13 @@ Mal eben "kurz" MySQL installieren, doch ist das alles so sicher? Eigentlich gan
 
 <b>Inhalt:</b>
 
- 1. [Berechtigungen des Datenbankordners](#1)
- 2. [Analyse der Log-Datei](#2)
+ 1. [Zugriffsrechte des Datenbankordners](#1)
+ 2. [Deaktivierung des Fernzugriffs](#2)
+    1. [Deaktivierung des Fernzugriffs auf den Datenbank-`root`-Nutzer](#2.1)
+ 3. [Verbindung zur Datenbank verschlüsseln](#3)
+ 2. [`mysql_secure_installation`](#2)
 
+<a id="1"></a>
 # 1. Zugriffsrechte des Datenbankordners
  
 Auch wenn es die Quelle, die richtigien Zugriffsrechte auf den Datenbankordner sich unabdingbar.
@@ -42,6 +46,7 @@ Um die richtigen Berechtigungen zu setzen kann als `root` einfach folgendes durc
 find /var/db/mysql -type d | xargs chmod 700
 find /var/db/mysql -type f | xargs chmod 600</code></pre>
 
+<a id="2"></a>
 # 2. Deaktivierung des Fernzugriffs
 
 Wenn nicht unbedingt erforderlich, sollte der Fernzugriff auf den MySQL-Server deaktiviert werden.
@@ -70,7 +75,8 @@ user                            = mysql
 socket                          = /tmp/mysql.sock
 skip-networking</code></pre>
 
-## Fernzugriff auf den Datenbank-`root`-Nutzer unterbinden
+<a id="2.1"></a>
+## 2.1 Deaktivierung des Fernzugriffs auf den Datenbank-`root`-Nutzer
 
 Sollte eine Datenverbindung von außen unbedingt nötig seien, sei hier eine Möglichkeit
 präsentiert wie zumindest dem Datenbank-`root`-Nutzer der Fernzugriff verboten wird.
@@ -81,6 +87,7 @@ Dazu wird in der MySQL-Shell folgendes ausgeführt:
 <code>DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 FLUSH PRIVILEGES;</code></pre>
 
+<a id="3></a>
 # 3. Verbindungen verschlüsseln
 
 MySQL unterstützt grundsätzlich verschlüsselte Verbindungen. Besonders dann, wenn über einen
@@ -119,7 +126,7 @@ writing new private key to 'client-key.pem'
 Ist der Server bereits für Verschlüsselung eingerichtet,
 bricht `mysql_ssl_rsa_setup` ohne Fehlermeldung ab.
 
- 
+<a id="4"></a>
 # 4. `mysql_secure_installation`
 
 Bei jeder Installation des MySQL-Servers (auch bei MariaDB) liegt das Script 
